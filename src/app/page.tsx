@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Network, TheGraphNetworksRegistrySchema } from '@/types/registry';
+import { Network } from '@/types/registry';
 import { NetworkModal } from '@/components/NetworkModal';
 import { NetworksContainer } from '@/components/NetworksContainer';
 
@@ -13,10 +13,9 @@ export default function Home() {
   useEffect(() => {
     const fetchNetworks = async () => {
       try {
-        const response = await fetch('https://graphregistry.pages.dev/TheGraphNetworksRegistry_v0_x_x.json');
+        const response = await fetch('/api/networks');
         const data = await response.json();
-        const parsedData = data as TheGraphNetworksRegistrySchema;
-        setNetworks(parsedData.networks);
+        setNetworks(data.networks);
       } catch (error) {
         console.error('Error fetching networks:', error);
       }
