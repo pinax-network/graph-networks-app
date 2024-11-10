@@ -6,6 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { getNetworkNameAndVariant } from '@/lib/utils';
 
 interface NetworkCardProps {
   network: Network;
@@ -19,21 +20,11 @@ const SERVICE_INDICATORS = [
   { key: 'firehose', color: '#FFA801', hoverText: 'Firehose' },
 ] as const;
 
-function getNetworkNameAndVariant(network: Network) {
-  return network.icon?.web3Icons ? {
-    network: network.icon.web3Icons.name,
-    variant: network.icon.web3Icons.variants?.length === 1 && network.icon.web3Icons.variants[0] === 'mono' ? 'mono' : 'branded'
-  } as const : {
-    network: 'ethereum',
-    variant: 'mono'
-  } as const;
-}
-
 export function NetworkCard({ network, onClick }: NetworkCardProps) {
   return (
     <div
       onClick={onClick}
-      className="bg-gray-800 rounded-lg p-6 cursor-pointer hover:bg-gray-700 transition-colors relative"
+      className="bg-slate-800 rounded-lg p-6 cursor-pointer hover:bg-slate-700 transition-colors relative border border-slate-700/30"
     >
       <div className="flex items-center gap-4">
         <NetworkIcon

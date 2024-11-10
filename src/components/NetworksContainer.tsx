@@ -13,7 +13,7 @@ interface FilterToggleProps {
 
 function FilterToggle({ checked, onCheckedChange, label, id }: FilterToggleProps) {
   return (
-    <div className="flex items-center gap-2 px-4 py-1.5 rounded-lg bg-gray-800/50 border border-gray-700 hover:border-gray-600 transition-colors">
+    <div className="flex items-center gap-2 px-4 py-1.5 rounded-lg bg-slate-800/50 border border-gray-700 hover:border-gray-600 transition-colors">
       <Switch
         checked={checked}
         onCheckedChange={onCheckedChange}
@@ -99,7 +99,7 @@ export function NetworksContainer({ networks }: { networks: Network[] }) {
             placeholder="Search networks..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-1.5 bg-gray-800/50 rounded-lg border border-gray-700 focus:border-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-600 text-white placeholder:text-gray-400"
+            className="w-full px-4 py-1.5 bg-slate-800/50 rounded-lg border border-gray-700 focus:border-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-600 text-white placeholder:text-gray-400"
           />
         </div>
 
