@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { Network, TheGraphNetworksRegistrySchema } from '@/types/registry';
 import { NetworkModal } from '@/components/NetworkModal';
 import { NetworksContainer } from '@/components/NetworksContainer';
@@ -26,8 +27,16 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-900 text-white p-8">
       <header className="max-w-7xl mx-auto mb-12">
-        <h1 className="text-4xl font-bold">The Graph Blockchain Networks</h1>
-        <p className="text-gray-400 mt-2">Explore available blockchain networks</p>
+        <div className="flex items-center gap-4 mb-2">
+          <Image
+            src="/the-graph-logo.svg"
+            alt="The Graph Logo"
+            width={64}
+            height={64}
+            className="h-16 w-16"
+          />
+          <h1 className="text-4xl font-bold">The Graph Blockchain Networks</h1>
+        </div>
       </header>
 
       <main className="max-w-7xl mx-auto">
