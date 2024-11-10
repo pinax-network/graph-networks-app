@@ -142,6 +142,19 @@ export function NetworksContainer({ networks }: { networks: Network[] }) {
             onClick={() => setSelectedNetwork(network)}
           />
         ))}
+        <NetworkCard
+            key="asdf"
+            network={{
+                id: "missing_chain",
+                shortName: "Missing chain?",
+                fullName: "Add it to the Registry here",
+                caip2Id: "",
+                networkType: "mainnet",
+                services: {},
+                issuanceRewards: false,
+            }}
+            onClick={() => window.open('https://github.com/graphprotocol/networks-registry', '_blank')}
+        />
       </div>
 
       {selectedNetwork && (
