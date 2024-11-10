@@ -5,24 +5,30 @@ import Image from 'next/image';
 import { Network } from '@/types/registry';
 import { NetworkModal } from '@/components/NetworkModal';
 import { NetworksContainer } from '@/components/NetworksContainer';
+import { Loader2 } from 'lucide-react';
 
 export default function Home() {
   const [selectedNetwork, setSelectedNetwork] = useState<Network | null>(null);
   const [networks, setNetworks] = useState<Network[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchNetworks = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch('/api/networks');
         const data = await response.json();
         setNetworks(data.networks);
       } catch (error) {
         console.error('Error fetching networks:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchNetworks();
   }, []);
+
   return (
     <div
       className="min-h-screen text-white p-8 relative flex flex-col"
@@ -50,7 +56,13 @@ export default function Home() {
         </header>
 
         <main className="max-w-7xl mx-auto">
-          <NetworksContainer networks={networks} />
+          {isLoading ? (
+            <div className="flex justify-center items-center min-h-[200px] mt-[436px] ml-[-4px]">
+              <Loader2 className="h-32 w-32 animate-spin text-white" />
+            </div>
+          ) : (
+            <NetworksContainer networks={networks} />
+          )}
         </main>
 
         {selectedNetwork && (

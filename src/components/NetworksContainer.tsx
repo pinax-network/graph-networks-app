@@ -118,7 +118,7 @@ export function NetworksContainer({ networks }: { networks: Network[] }) {
         <FilterToggle
           checked={filters.sps}
           onCheckedChange={(checked) => setFilters(f => ({ ...f, sps: checked }))}
-          label="SPS"
+          label="SpS"
           id="sps-toggle"
         />
         <FilterToggle
