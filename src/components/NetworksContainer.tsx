@@ -35,7 +35,7 @@ function FilterToggle({ checked, onCheckedChange, label, id }: FilterToggleProps
 
 export function NetworksContainer({ networks }: { networks: Network[] }) {
   const [selectedNetwork, setSelectedNetwork] = useState<Network | null>(null);
-  const [showTestnets, setShowTestnets] = useState(false);
+  const [showTestnets, setShowTestnets] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({
     subgraphs: false,
@@ -52,6 +52,7 @@ export function NetworksContainer({ networks }: { networks: Network[] }) {
         const matchesSearch =
           network.fullName.toLowerCase().includes(search) ||
           network.shortName.toLowerCase().includes(search) ||
+          network.caip2Id.toLowerCase().includes(search) ||
           network.id.toLowerCase().includes(search);
 
         if (!matchesSearch) return false;

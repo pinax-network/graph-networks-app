@@ -25,30 +25,42 @@ export default function Home() {
     fetchNetworks();
   }, []);
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-8">
-      <header className="max-w-7xl mx-auto mb-12">
-        <div className="flex items-center gap-4 mb-2">
-          <Image
-            src="/the-graph-logo.svg"
-            alt="The Graph Logo"
-            width={64}
-            height={64}
-            className="h-16 w-16"
+    <div
+      className="min-h-screen text-white p-8 relative flex flex-col"
+      style={{
+        backgroundImage: 'url("/the-graph-background.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      <div className="inset-0 bg-black/50 fixed" /> {/* Fixed dark overlay */}
+      <div className="relative z-10 flex-grow"> {/* Content wrapper with flex-grow */}
+        <header className="max-w-7xl mx-auto mb-12">
+          <div className="flex items-center gap-4 mb-2">
+            <Image
+              src="/the-graph-logo.svg"
+              alt="The Graph Logo"
+              width={64}
+              height={64}
+              className="h-16 w-16"
+            />
+            <h1 className="text-4xl font-bold">The Graph Blockchain Networks</h1>
+          </div>
+        </header>
+
+        <main className="max-w-7xl mx-auto">
+          <NetworksContainer networks={networks} />
+        </main>
+
+        {selectedNetwork && (
+          <NetworkModal
+            network={selectedNetwork}
+            onClose={() => setSelectedNetwork(null)}
           />
-          <h1 className="text-4xl font-bold">The Graph Blockchain Networks</h1>
-        </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto">
-        <NetworksContainer networks={networks} />
-      </main>
-
-      {selectedNetwork && (
-        <NetworkModal
-          network={selectedNetwork}
-          onClose={() => setSelectedNetwork(null)}
-        />
-      )}
+        )}
+      </div>
     </div>
   );
 }

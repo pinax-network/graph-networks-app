@@ -32,8 +32,8 @@ export function NetworkModal({ network, onClose }: NetworkModalProps) {
             </div>
           )}
           <div>
-            <h2 className="text-2xl font-bold text-white">{network.fullName}</h2>
-            <p className="text-gray-400">{network.shortName}</p>
+            <h2 className="text-2xl font-bold text-white">{network.shortName}</h2>
+            <p className="text-gray-400">{network.fullName}</p>
           </div>
         </div>
 

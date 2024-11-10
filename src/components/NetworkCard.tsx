@@ -13,10 +13,10 @@ interface NetworkCardProps {
 }
 
 const SERVICE_INDICATORS = [
-  { key: 'subgraphs', color: 'bg-blue-400', hoverText: 'Subgraph in Studio' },
-  { key: 'sps', color: 'bg-red-400', hoverText: 'Substreams-based Subgraphs in Studio' },
-  { key: 'substreams', color: 'bg-green-400', hoverText: 'Substreams' },
-  { key: 'firehose', color: 'bg-orange-400', hoverText: 'Firehose' },
+  { key: 'subgraphs', color: '#66D8FF', hoverText: 'Subgraph in Studio' },
+  { key: 'sps', color: '#4BCA81', hoverText: 'Substreams-powered Subgraphs in Studio' },
+  { key: 'substreams', color: '#FF79C6', hoverText: 'Substreams' },
+  { key: 'firehose', color: '#FFA801', hoverText: 'Firehose' },
 ] as const;
 
 function getNetworkNameAndVariant(network: Network) {
@@ -25,7 +25,7 @@ function getNetworkNameAndVariant(network: Network) {
     variant: network.icon.web3Icons.variants?.length === 1 && network.icon.web3Icons.variants[0] === 'mono' ? 'mono' : 'branded'
   } as const : {
     network: 'ethereum',
-    variant: 'branded'
+    variant: 'mono'
   } as const;
 }
 
@@ -53,11 +53,12 @@ export function NetworkCard({ network, onClick }: NetworkCardProps) {
             <Tooltip delayDuration={200}>
               <TooltipTrigger>
                 <div
-                  className={`w-4 h-4 rounded-full ${
-                    network.services?.[key as keyof typeof network.services]?.length
+                  className="w-4 h-4 rounded-full"
+                  style={{
+                    backgroundColor: network.services?.[key as keyof typeof network.services]?.length
                       ? color
-                      : 'bg-gray-600/30'
-                  }`}
+                      : '#4B55634D'
+                  }}
                 />
               </TooltipTrigger>
               <TooltipContent>
