@@ -43,15 +43,22 @@ export default function Home() {
       <div className="inset-0 bg-black/50 fixed" /> {/* Fixed dark overlay */}
       <div className="relative z-10 flex-grow"> {/* Content wrapper with flex-grow */}
         <header className="max-w-7xl mx-auto mb-12">
-          <div className="flex items-center gap-4 mb-2">
-            <Image
-              src="/the-graph-logo.svg"
-              alt="The Graph Logo"
-              width={64}
-              height={64}
-              className="h-16 w-16"
-            />
-            <h1 className="text-4xl font-bold">The Graph Blockchain Networks</h1>
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-4">
+              <Image
+                src="/the-graph-logo.svg"
+                alt="The Graph Logo"
+                width={64}
+                height={64}
+                className="h-16 w-16"
+              />
+              <h1 className="text-4xl font-bold">The Graph Networks</h1>
+            </div>
+            <div className="text-right">
+              <div className="text-[80px] font-bold text-[#F8F6FF] leading-none">
+                {networks.length}+
+              </div>
+            </div>
           </div>
         </header>
 
