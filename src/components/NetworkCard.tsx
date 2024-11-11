@@ -28,7 +28,7 @@ export function NetworkCard({ network, onClick }: NetworkCardProps) {
       className="bg-slate-800 rounded-lg p-6 cursor-pointer hover:bg-slate-700 transition-colors relative border border-slate-700/30"
     >
       <div className="flex items-center gap-4">
-        <div className="relative">
+        <div className="relative w-16 h-16">
           <NetworkIcon
             size={64}
             className="object-contain"
@@ -38,7 +38,7 @@ export function NetworkCard({ network, onClick }: NetworkCardProps) {
             <TooltipProvider>
               <Tooltip delayDuration={200}>
                 <TooltipTrigger>
-                  <div className="absolute bottom-3 -right-2">
+                  <div className="absolute -bottom-2 -right-2">
                     <Image
                       src="/the-graph-token-light.svg"
                       alt="GRT Token"
