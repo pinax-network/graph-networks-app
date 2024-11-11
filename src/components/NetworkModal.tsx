@@ -8,28 +8,40 @@ interface NetworkModalProps {
   onClose: () => void;
 }
 
-function InfoItem({ label, value, link }: { label: string; value: string; link?: boolean }) {
-  if (link) {
-    return (
-      <div>
-        <h3 className="text-gray-400 mb-1">{label}</h3>
-        <a
-          href={value}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-400 hover:text-blue-300 block truncate"
-        >
-          {value}
-        </a>
-      </div>
-    );
-  }
+function InfoLabel({ children }: { children: React.ReactNode }) {
+  return <h3 className="text-gray-400 mb-1">{children}</h3>;
+}
 
+function InfoText({ children, bold = false }: { children: React.ReactNode; bold?: boolean }) {
   return (
-    <div>
-      <h3 className="text-gray-400 mb-1">{label}</h3>
-      <p className="text-white break-words font-bold">{value}</p>
-    </div>
+    <p className={`text-white break-words ${bold ? 'font-bold' : ''}`}>
+      {children}
+    </p>
+  );
+}
+
+function InfoLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-blue-400 hover:text-blue-300 inline-flex items-center gap-2"
+    >
+      <span className="truncate">{children}</span>
+      <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+      </svg>
+    </a>
+  );
+}
+
+function InfoCode({ text }: { text: string }) {
+  return (
+    <p className="text-white break-all font-mono text-sm inline-flex items-center max-w-full">
+      {text}
+      <CopyButton text={text} />
+    </p>
   );
 }
 
@@ -71,6 +83,40 @@ const getProviderServiceName = (provider: string) => {
     case 'graphops': return 'GraphOps';
     default: return provider;
   }
+}
+
+interface ServiceSectionProps {
+  title: string;
+  color: string;
+  services?: Array<{ provider: string; url?: string }>;
+  showUrl?: boolean;
+}
+
+function ServiceSection({ title, color, services = [], showUrl = false }: ServiceSectionProps) {
+  return (
+    <div>
+      <h3 className="text-gray-400 mb-2 flex items-center gap-2">
+        <span
+          className="w-3 h-3 rounded-full inline-block"
+          style={{ backgroundColor: color }}
+        />
+        {title}
+      </h3>
+      {services && (
+        <div className="space-y-2 max-w-full">
+          {services.map((service, index) => (
+            <div key={index}>
+              {showUrl ? (
+                <InfoCode text={service.url ?? ''} />
+              ) : (
+                <InfoText bold>{getProviderServiceName(service.provider)}</InfoText>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export function NetworkModal({ network, onClose }: NetworkModalProps) {
@@ -125,43 +171,41 @@ export function NetworkModal({ network, onClose }: NetworkModalProps) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {network.nativeToken && (
-            <InfoItem label="ID" value={network.id} />
-          )}
-          <InfoItem label="CAIP-2 ID" value={network.caip2Id} />
+          <div>
+            <InfoLabel>ID</InfoLabel>
+            <InfoText bold>{network.id}</InfoText>
+          </div>
+          <div>
+            <InfoLabel>CAIP-2 ID</InfoLabel>
+            <InfoText bold>{network.caip2Id}</InfoText>
+          </div>
           {network.explorerUrls && (
             <div>
-              <h3 className="text-gray-400 mb-2">Block Explorers</h3>
+              <InfoLabel>Block Explorers</InfoLabel>
               <div className="space-y-2">
                 {network.explorerUrls.map((url, index) => (
-                  <a
-                    key={index}
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-400 hover:text-blue-300 block truncate"
-                  >
+                  <InfoLink key={index} href={url}>
                     {url}
-                  </a>
+                  </InfoLink>
                 ))}
               </div>
             </div>
           )}
           {network.docsUrl && (
-            <InfoItem label="Documentation" value={network.docsUrl} link />
+            <div>
+              <InfoLabel>Documentation</InfoLabel>
+              <InfoLink href={network.docsUrl}>{network.docsUrl}</InfoLink>
+            </div>
           )}
 
           <div className="col-span-full">
             {network.rpcUrls && (
               <div>
-                <h3 className="text-gray-400 mb-2">RPC</h3>
+                <InfoLabel>RPC</InfoLabel>
                 <div className="space-y-2 max-w-full">
                   {network.rpcUrls.map((url, index) => (
                     <div key={index} className="flex items-start max-w-full">
-                      <p className="text-white break-all font-mono text-sm inline-flex items-center max-w-full">
-                        {url}
-                        <CopyButton text={url} />
-                      </p>
+                      <InfoCode text={url} />
                     </div>
                   ))}
                 </div>
@@ -169,90 +213,37 @@ export function NetworkModal({ network, onClose }: NetworkModalProps) {
             )}
           </div>
 
+          <div className="col-span-full">
+            <InfoLink href={`https://thegraph.com/explorer?indexedNetwork=${network.id}`}>
+              Explore subgraphs on The Graph Network
+            </InfoLink>
+          </div>
+
           {network.services && (
             <div className="col-span-full">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="text-gray-400 mb-2 flex items-center gap-2">
-                    <span
-                      className="w-3 h-3 rounded-full inline-block"
-                      style={{
-                        backgroundColor: getColors().subgraphs
-                      }}
-                    />
-                    Subgraphs
-                  </h3>
-                  <div className="space-y-1">
-                    {network.services.subgraphs?.map((service, index) => (
-                      <p key={index} className="text-white font-bold">
-                        {getProviderServiceName(service.provider)}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-gray-400 mb-2 flex items-center gap-2">
-                    <span
-                      className="w-3 h-3 rounded-full inline-block"
-                      style={{
-                        backgroundColor: getColors().sps
-                      }}
-                    />
-                    Substreams-powered Subgraphs
-                  </h3>
-                  <div className="space-y-1">
-                    {network.services.sps?.map((service, index) => (
-                      <p key={index} className="text-white font-bold">
-                        {getProviderServiceName(service.provider)}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-gray-400 mb-2 flex items-center gap-2">
-                    <span
-                      className="w-3 h-3 rounded-full inline-block"
-                      style={{
-                        backgroundColor: getColors().firehose
-                      }}
-                    />
-                    Firehose
-                  </h3>
-                  <div className="space-y-2 max-w-full">
-                    {network.services.firehose?.map((service, index) => (
-                      <div key={index}>
-                        <p className="text-white break-all font-mono text-sm inline-flex items-center max-w-full">
-                          {service.url ?? ''}
-                          <CopyButton text={service.url ?? ''} />
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-gray-400 mb-2 flex items-center gap-2">
-                    <span
-                      className="w-3 h-3 rounded-full inline-block"
-                      style={{
-                        backgroundColor: getColors().substreams
-                      }}
-                    />
-                    Substreams
-                  </h3>
-                  <div className="space-y-2 max-w-full">
-                    {network.services.substreams?.map((service, index) => (
-                      <div key={index}>
-                        <p className="text-white break-all font-mono text-sm inline-flex items-center max-w-full">
-                          {service.url ?? ''}
-                          <CopyButton text={service.url ?? ''} />
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <ServiceSection
+                  title="Subgraphs"
+                  color={getColors().subgraphs}
+                  services={network.services.subgraphs}
+                />
+                <ServiceSection
+                  title="Substreams-powered Subgraphs"
+                  color={getColors().sps}
+                  services={network.services.sps}
+                />
+                <ServiceSection
+                  title="Firehose"
+                  color={getColors().firehose}
+                  services={network.services.firehose}
+                  showUrl
+                />
+                <ServiceSection
+                  title="Substreams"
+                  color={getColors().substreams}
+                  services={network.services.substreams}
+                  showUrl
+                />
               </div>
             </div>
           )}
