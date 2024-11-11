@@ -3,6 +3,7 @@ import { Network } from '@/types/registry';
 import { NetworkCard } from './NetworkCard';
 import { NetworkModal } from './NetworkModal';
 import { Switch } from '@/components/ui/switch';
+import { NetworkCount } from '@/app/api/subgraphs/route';
 
 interface FilterToggleProps {
   checked: boolean;
@@ -33,7 +34,7 @@ function FilterToggle({ checked, onCheckedChange, label, id }: FilterToggleProps
   );
 }
 
-export function NetworksContainer({ networks }: { networks: Network[] }) {
+export function NetworksContainer({ networks, subgraphCounts }: { networks: Network[]; subgraphCounts: NetworkCount[] }) {
   const [selectedNetwork, setSelectedNetwork] = useState<Network | null>(null);
   const [showTestnets, setShowTestnets] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -164,6 +165,7 @@ export function NetworksContainer({ networks }: { networks: Network[] }) {
       {selectedNetwork && (
         <NetworkModal
           network={selectedNetwork}
+          subgraphCounts={subgraphCounts.find((count) => count.network === selectedNetwork.id)}
           onClose={() => setSelectedNetwork(null)}
         />
       )}

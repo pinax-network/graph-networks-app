@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 
 interface NetworkModalProps {
   network: Network;
+  subgraphCounts?: { subgraphsCount: number; spsCount: number };
   onClose: () => void;
 }
 
@@ -93,6 +94,7 @@ interface ServiceSectionProps {
 }
 
 function ServiceSection({ title, color, services = [], showUrl = false }: ServiceSectionProps) {
+
   return (
     <div>
       <h3 className="text-gray-400 mb-2 flex items-center gap-2">
@@ -119,7 +121,7 @@ function ServiceSection({ title, color, services = [], showUrl = false }: Servic
   );
 }
 
-export function NetworkModal({ network, onClose }: NetworkModalProps) {
+export function NetworkModal({ network, subgraphCounts, onClose }: NetworkModalProps) {
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -142,6 +144,7 @@ export function NetworkModal({ network, onClose }: NetworkModalProps) {
     }
   }
 
+  console.log('subgraphCounts', JSON.stringify(subgraphCounts));
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50" onClick={onClose}>
       <div
@@ -213,12 +216,6 @@ export function NetworkModal({ network, onClose }: NetworkModalProps) {
             )}
           </div>
 
-          <div className="col-span-full">
-            <InfoLink href={`https://thegraph.com/explorer?indexedNetwork=${network.id}`}>
-              Explore subgraphs on The Graph Network
-            </InfoLink>
-          </div>
-
           {network.services && (
             <div className="col-span-full">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -247,6 +244,26 @@ export function NetworkModal({ network, onClose }: NetworkModalProps) {
               </div>
             </div>
           )}
+
+
+            <div className="col-span-full">
+              {subgraphCounts ? (
+                <p className="text-white">
+                  <span className="font-bold">{subgraphCounts.subgraphsCount}</span> subgraphs
+                  {subgraphCounts.spsCount > 0 && (
+                    <>, <span className="font-bold">{subgraphCounts.spsCount}</span> of them substreams-powered</>
+                  )}
+                  {' '}on{' '}
+                  <InfoLink href={`https://thegraph.com/explorer?indexedNetwork=${network.id}`}>
+                    The Graph Network
+                  </InfoLink>
+                </p>
+              ) : (
+                <InfoLink href={`https://thegraph.com/explorer?indexedNetwork=${network.id}`}>
+                  Explore subgraphs on The Graph Network
+                </InfoLink>
+              )}
+            </div>
         </div>
       </div>
     </div>

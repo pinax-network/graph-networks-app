@@ -3,30 +3,36 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Network } from '@/types/registry';
-import { NetworkModal } from '@/components/NetworkModal';
 import { NetworksContainer } from '@/components/NetworksContainer';
 import { Loader2 } from 'lucide-react';
+import { NetworkCount } from './api/subgraphs/route';
 
 export default function Home() {
-  const [selectedNetwork, setSelectedNetwork] = useState<Network | null>(null);
   const [networks, setNetworks] = useState<Network[]>([]);
+  const [subgraphCounts, setSubgraphCounts] = useState<NetworkCount[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchNetworks = async () => {
+    const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch('/api/networks');
-        const data = await response.json();
-        setNetworks(data.networks);
+        const [networksResponse, subgraphsResponse] = await Promise.all([
+          fetch('/api/networks'),
+          fetch('/api/subgraphs')
+        ]);
+
+        const networksData = await networksResponse.json();
+        const subgraphsData = await subgraphsResponse.json();
+        setNetworks(networksData.networks);
+        setSubgraphCounts(subgraphsData);
       } catch (error) {
-        console.error('Error fetching networks:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchNetworks();
+    fetchData();
   }, []);
 
   return (
@@ -68,16 +74,10 @@ export default function Home() {
               <Loader2 className="h-32 w-32 animate-spin text-white" />
             </div>
           ) : (
-            <NetworksContainer networks={networks} />
+            <NetworksContainer networks={networks} subgraphCounts={subgraphCounts} />
           )}
         </main>
 
-        {selectedNetwork && (
-          <NetworkModal
-            network={selectedNetwork}
-            onClose={() => setSelectedNetwork(null)}
-          />
-        )}
       </div>
     </div>
   );
