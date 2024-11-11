@@ -14,7 +14,7 @@ export async function GET() {
     console.error("Error fetching networks:", error);
     return NextResponse.json(
       { error: "Failed to fetch networks" },
-      { status: 500 }
+      { status: 502 }
     );
   }
 }

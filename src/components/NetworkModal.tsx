@@ -199,7 +199,7 @@ export function NetworkModal({ network, onClose }: NetworkModalProps) {
                         backgroundColor: getColors().sps
                       }}
                     />
-                    SpS
+                    Substreams-powered Subgraphs
                   </h3>
                   <div className="space-y-1">
                     {network.services.sps?.map((service, index) => (
