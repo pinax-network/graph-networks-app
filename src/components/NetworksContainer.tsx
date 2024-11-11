@@ -147,8 +147,8 @@ export function NetworksContainer({ networks }: { networks: Network[] }) {
             key="asdf"
             network={{
                 id: "missing_chain",
-                shortName: "Missing chain?",
-                fullName: "Add it to the Registry here",
+                shortName: "Missing a chain?",
+                fullName: "Add it to the Registry!",
                 caip2Id: "",
                 networkType: "mainnet",
                 services: {},
