@@ -1,7 +1,7 @@
 import { getNetworkNameAndVariant } from '@/lib/utils';
 import { Network } from '@/types/registry';
 import { NetworkIcon } from '@web3icons/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface NetworkModalProps {
   network: Network;
@@ -74,6 +74,18 @@ const getProviderServiceName = (provider: string) => {
 }
 
 export function NetworkModal({ network, onClose }: NetworkModalProps) {
+  useEffect(() => {
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+    document.addEventListener('keydown', handleEscapeKey);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [onClose]);
 
   const getColors = () => {
     return {
