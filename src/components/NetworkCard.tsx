@@ -1,5 +1,6 @@
 import { Network } from '@/types/registry';
 import { NetworkIcon } from '@web3icons/react'
+import Image from 'next/image';
 import {
   Tooltip,
   TooltipContent,
@@ -27,11 +28,33 @@ export function NetworkCard({ network, onClick }: NetworkCardProps) {
       className="bg-slate-800 rounded-lg p-6 cursor-pointer hover:bg-slate-700 transition-colors relative border border-slate-700/30"
     >
       <div className="flex items-center gap-4">
-        <NetworkIcon
-          size={64}
-          className="object-contain"
-          {...getNetworkNameAndVariant(network)}
-        />
+        <div className="relative">
+          <NetworkIcon
+            size={64}
+            className="object-contain"
+            {...getNetworkNameAndVariant(network)}
+          />
+          {network.issuanceRewards && (
+            <TooltipProvider>
+              <Tooltip delayDuration={200}>
+                <TooltipTrigger>
+                  <div className="absolute bottom-3 -right-2">
+                    <Image
+                      src="/the-graph-token-light.svg"
+                      alt="GRT Token"
+                      width={24}
+                      height={24}
+                      className="w-6 h-6"
+                    />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Indexing Rewards</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+        </div>
         <div>
           <h3 className="text-xl font-bold text-white">{network.shortName}</h3>
           <p className="text-gray-400">{network.fullName}</p>
