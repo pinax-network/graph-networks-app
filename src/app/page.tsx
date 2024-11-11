@@ -64,7 +64,7 @@ export default function Home() {
 
         <main className="max-w-7xl mx-auto">
           {isLoading ? (
-            <div className="flex justify-center items-center min-h-[200px] mt-[436px] ml-[-4px]">
+            <div className="flex justify-center items-center min-h-[200px] mt-[420px] ml-[-4px]">
               <Loader2 className="h-32 w-32 animate-spin text-white" />
             </div>
           ) : (
