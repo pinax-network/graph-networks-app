@@ -76,6 +76,9 @@ export function NetworksContainer({ networks }: { networks: Network[] }) {
       );
     })
     .sort((a, b) => {
+      if (a.issuanceRewards !== b.issuanceRewards) {
+        return b.issuanceRewards ? 1 : -1;
+      }
       // Count supported services for each network
       const countServices = (network: Network) => {
         return ['subgraphs', 'sps', 'firehose', 'substreams'].reduce((count, service) => {
