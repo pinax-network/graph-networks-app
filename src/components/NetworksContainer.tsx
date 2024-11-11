@@ -165,7 +165,7 @@ export function NetworksContainer({ networks, subgraphCounts }: { networks: Netw
       {selectedNetwork && (
         <NetworkModal
           network={selectedNetwork}
-          subgraphCounts={subgraphCounts.find((count) => count.network === selectedNetwork.id)}
+          subgraphCounts={subgraphCounts?.find((count) => count.network === selectedNetwork.id)}
           onClose={() => setSelectedNetwork(null)}
         />
       )}
