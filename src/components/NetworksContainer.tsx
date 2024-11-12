@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Network } from '@/types/registry';
 import { NetworkCard } from './NetworkCard';
-import { NetworkModal } from './NetworkModal';
+import { NetworkDrawer } from './NetworkDrawer';
 import { Switch } from '@/components/ui/switch';
 import { NetworkCount } from '@/app/api/subgraphs/route';
 
@@ -35,7 +35,7 @@ function FilterToggle({ checked, onCheckedChange, label, id }: FilterToggleProps
 }
 
 export function NetworksContainer({ networks, subgraphCounts }: { networks: Network[]; subgraphCounts: NetworkCount[] }) {
-  const [selectedNetwork, setSelectedNetwork] = useState<Network | null>(null);
+  const [selectedNetwork, setSelectedNetwork] = useState<Network | undefined>(undefined);
   const [showTestnets, setShowTestnets] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({
@@ -148,7 +148,7 @@ export function NetworksContainer({ networks, subgraphCounts }: { networks: Netw
           />
         ))}
         <NetworkCard
-            key="asdf"
+            key="missing_chain"
             network={{
                 id: "missing_chain",
                 shortName: "Missing a chain?",
@@ -162,13 +162,14 @@ export function NetworksContainer({ networks, subgraphCounts }: { networks: Netw
         />
       </div>
 
-      {selectedNetwork && (
-        <NetworkModal
+      { selectedNetwork &&
+        <NetworkDrawer
           network={selectedNetwork}
-          subgraphCounts={subgraphCounts?.find((count) => count.network === selectedNetwork.id)}
-          onClose={() => setSelectedNetwork(null)}
+          subgraphCounts={subgraphCounts?.find((count) => count.network === selectedNetwork?.id)}
+          onClose={() => setSelectedNetwork(undefined)}
+          isOpen={selectedNetwork !== null}
         />
-      )}
+      }
     </>
   );
 }
