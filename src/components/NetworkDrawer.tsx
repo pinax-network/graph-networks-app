@@ -164,7 +164,7 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
       />
 
       <div
-        className={`fixed right-0 top-0 h-full w-full sm:w-[580px] bg-slate-800 shadow-xl transform transition-transform duration-500 ease-in-out z-50 ${
+        className={`fixed right-0 top-0 h-full w-full sm:w-[580px] bg-slate-800/90 backdrop-blur-sm shadow-xl transform transition-transform duration-500 ease-in-out z-50 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
