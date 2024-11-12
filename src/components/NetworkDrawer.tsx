@@ -120,6 +120,18 @@ function ServiceSection({ title, color, services = [], showUrl = false }: Servic
   );
 }
 
+function getRelationText(kind: string): string {
+  switch (kind) {
+    case 'testnetOf': return 'Testnet of';
+    case 'beaconOf': return 'Beacon chain of';
+    case 'forkedFrom': return 'Forked from';
+    case 'l2Of': return 'Rolls up to';
+    case 'shardOf': return 'Shard of';
+    case 'evmOf': return 'EVM chain of';
+    default: return 'Related to';
+  }
+}
+
 export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: NetworkDrawerProps) {
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
@@ -190,6 +202,20 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                 <InfoLabel>CAIP-2 ID</InfoLabel>
                 <InfoText bold>{network.caip2Id}</InfoText>
               </div>
+
+              {network.relations && (
+                <div>
+                  <InfoLabel>Relations</InfoLabel>
+                  <div className="space-y-2">
+                    {network.relations.map((relation, index) => (
+                      <InfoText key={index}>
+                        {getRelationText(relation.kind)} <span className="font-bold">{relation.network}</span>
+                      </InfoText>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {network.explorerUrls && (
                 <div>
                   <InfoLabel>Block Explorers</InfoLabel>
