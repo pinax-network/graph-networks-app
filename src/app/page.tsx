@@ -77,17 +77,18 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="text-right">
-              <div className="text-[80px] font-bold text-[#F8F6FF] leading-none">
-                {networks.length}+
+            <div className="hidden sm:block text-right">
+              <div className="text-[50px] font-bold text-[#F8F6FF] leading-none">
+                {networks.length}
               </div>
+              <div className="text-l text-gray-300/80">networks</div>
             </div>
           </div>
         </header>
 
         <main className="max-w-7xl mx-auto">
-          {isLoading ? (
-            <div className="flex justify-center items-center min-h-[200px] mt-[420px] ml-[-4px]">
+          {isLoading || true ? (
+            <div className="absolute left-1/2 transform mt-[413px] ml-[-66px]">
               <Loader2 className="h-32 w-32 animate-spin text-white" />
             </div>
           ) : (
