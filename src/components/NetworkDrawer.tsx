@@ -28,7 +28,7 @@ function InfoLink({ href, children }: { href: string; children: React.ReactNode 
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-blue-400 hover:text-blue-300 inline-flex items-center gap-2"
+      className="text-blue-400 hover:text-blue-300 inline-flex items-center gap-2 text-sm sm:text-base"
     >
       <span className="truncate">{children}</span>
       <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -39,8 +39,8 @@ function InfoLink({ href, children }: { href: string; children: React.ReactNode 
 }
 function InfoCode({ text }: { text: string }) {
   return (
-    <p className="text-white break-all font-mono text-sm inline-flex items-center max-w-full">
-      {text}
+    <p className="text-white break-all font-mono text-xs sm:text-sm inline-flex items-center max-w-full">
+      <span className="truncate">{text}</span>
       <CopyButton text={text} />
     </p>
   );
@@ -93,12 +93,11 @@ interface ServiceSectionProps {
 }
 
 function ServiceSection({ title, color, services = [], showUrl = false }: ServiceSectionProps) {
-
   return (
     <div>
-      <h3 className="text-gray-400 mb-2 flex items-center gap-2">
+      <h3 className="text-gray-400 mb-2 flex items-center gap-2 text-sm sm:text-base">
         <span
-          className="w-3 h-3 rounded-full inline-block"
+          className="w-3 h-3 rounded-full inline-block flex-shrink-0"
           style={{ backgroundColor: color }}
         />
         {title}
@@ -106,7 +105,7 @@ function ServiceSection({ title, color, services = [], showUrl = false }: Servic
       {services && (
         <div className="space-y-2 max-w-full">
           {services.map((service, index) => (
-            <div key={index}>
+            <div key={index} className="min-w-0">
               {showUrl ? (
                 <InfoCode text={service.url ?? ''} />
               ) : (
@@ -165,15 +164,15 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
       />
 
       <div
-        className={`fixed right-0 top-0 h-full w-[550px] bg-slate-800 shadow-xl transform transition-transform duration-500 ease-in-out z-50 ${
+        className={`fixed right-0 top-0 h-full w-full sm:w-[580px] bg-slate-800 shadow-xl transform transition-transform duration-500 ease-in-out z-50 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <div className="h-full overflow-y-auto">
-          <div className="p-6 relative">
+          <div className="p-4 sm:p-6 relative">
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+              className="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-400 hover:text-white transition-colors"
             >
               <span className="sr-only">Close</span>
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -181,19 +180,19 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
               </svg>
             </button>
 
-            <div className="flex items-center gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
               <NetworkIcon
-                size={64}
+                size={48}
                 className="object-contain"
                 {...getNetworkNameAndVariant(network)}
               />
               <div>
-                <h2 className="text-2xl font-bold text-white">{network.shortName}</h2>
+                <h2 className="text-xl sm:text-2xl font-bold text-white">{network.shortName}</h2>
                 <p className="text-gray-400">{network.fullName}</p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-6">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6">
               <div>
                 <InfoLabel>ID</InfoLabel>
                 <InfoText bold>{network.id}</InfoText>
