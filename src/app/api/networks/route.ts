@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const response = await fetch(
-      "https://graphregistry.pages.dev/TheGraphNetworksRegistry_v0_x_x.json",
+      "https://registry.thegraph.com/TheGraphNetworksRegistry_v0_x_x.json",
       {
         next: { revalidate: 5 * 60 }, // Cache for 5 minutes
       }
