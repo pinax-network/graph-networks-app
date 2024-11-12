@@ -87,7 +87,7 @@ export default function Home() {
         </header>
 
         <main className="max-w-7xl mx-auto">
-          {isLoading || true ? (
+          {isLoading ? (
             <div className="absolute left-1/2 transform mt-[413px] ml-[-66px]">
               <Loader2 className="h-32 w-32 animate-spin text-white" />
             </div>
