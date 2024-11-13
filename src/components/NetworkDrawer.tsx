@@ -81,42 +81,19 @@ const getProviderServiceName = (provider: string) => {
     case 'streamingfast': return 'StreamingFast';
     case 'messari': return 'Messari';
     case 'graphops': return 'GraphOps';
+    case 'semiotic': return 'Semiotic';
     default: return provider;
   }
 }
 
 interface ServiceSectionProps {
-  serviceType: keyof typeof SERVICE_CONFIG;
+  title: string;
+  color: string;
   services?: Array<{ provider: string; url?: string }>;
+  showUrl?: boolean;
 }
 
-const SERVICE_CONFIG = {
-  subgraphs: {
-    title: "Subgraphs",
-    color: "#66D8FF",
-    urlOnly: false
-  },
-  sps: {
-    title: "Substreams-powered Subgraphs",
-    color: "#4BCA81",
-    urlOnly: false
-  },
-  firehose: {
-    title: "Firehose",
-    color: "#FFA801",
-    urlOnly: true
-  },
-  substreams: {
-    title: "Substreams",
-    color: "#FF79C6",
-    urlOnly: true
-  }
-} as const;
-
-function ServiceSection({ serviceType, services = [] }: ServiceSectionProps) {
-  const config = SERVICE_CONFIG[serviceType];
-  const color = services?.length > 0 ? config.color : '#4B55634D';
-
+function ServiceSection({ title, color, services = [], showUrl = false }: ServiceSectionProps) {
   return (
     <div>
       <h3 className="text-gray-400 mb-2 flex items-center gap-2 text-sm sm:text-base">
@@ -124,13 +101,13 @@ function ServiceSection({ serviceType, services = [] }: ServiceSectionProps) {
           className="w-3 h-3 rounded-full inline-block flex-shrink-0"
           style={{ backgroundColor: color }}
         />
-        {config.title}
+        {title}
       </h3>
       {services && (
         <div className="space-y-2 max-w-full">
           {services.map((service, index) => (
             <div key={index} className="min-w-0">
-              {config.urlOnly ? (
+              {showUrl ? (
                 <InfoCode text={service.url ?? ''} />
               ) : (
                 <InfoText bold>{getProviderServiceName(service.provider)}</InfoText>
@@ -168,6 +145,15 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
       document.removeEventListener('keydown', handleEscapeKey);
     };
   }, [onClose]);
+
+  const getColors = () => {
+    return {
+      subgraphs: network.services?.subgraphs?.length ? '#66D8FF' : '#4B55634D',
+      sps: network.services?.sps?.length ? '#4BCA81' : '#4B55634D',
+      substreams: network.services?.substreams?.length ? '#FF79C6' : '#4B55634D',
+      firehose: network.services?.firehose?.length ? '#FFA801' : '#4B55634D',
+    }
+  }
 
   return (
     <>
@@ -294,13 +280,28 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
               {network.services && (
                 <div className="col-span-full">
                   <div className="grid grid-cols-1 gap-6">
-                    {(Object.keys(network.services) as Array<keyof typeof SERVICE_CONFIG>).map(serviceType => (
-                      <ServiceSection
-                        key={serviceType}
-                        serviceType={serviceType}
-                        services={network.services[serviceType]}
-                      />
-                    ))}
+                    <ServiceSection
+                      title="Subgraphs"
+                      color={getColors().subgraphs}
+                      services={network.services.subgraphs}
+                    />
+                    <ServiceSection
+                      title="Substreams-powered Subgraphs"
+                      color={getColors().sps}
+                      services={network.services.sps}
+                    />
+                    <ServiceSection
+                      title="Firehose"
+                      color={getColors().firehose}
+                      services={network.services.firehose}
+                      showUrl
+                    />
+                    <ServiceSection
+                      title="Substreams"
+                      color={getColors().substreams}
+                      services={network.services.substreams}
+                      showUrl
+                    />
                   </div>
                 </div>
               )}
