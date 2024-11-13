@@ -52,7 +52,6 @@ export function NetworksContainer({ networks, subgraphCounts }: { networks: Netw
         const search = searchQuery.toLowerCase();
         const matchesSearch =
           network.fullName.toLowerCase().includes(search) ||
-          network.shortName.toLowerCase().includes(search) ||
           network.caip2Id.toLowerCase().includes(search) ||
           network.id.toLowerCase().includes(search);
 

@@ -187,7 +187,10 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                 {...getNetworkNameAndVariant(network)}
               />
               <div>
-                <h2 className="text-xl sm:text-2xl font-bold text-white">{network.shortName} {network.secondName ?? ''}</h2>
+                <h2 className="text-xl sm:text-2xl text-white inline-block">
+                  <span className="font-extrabold">{network.shortName}</span>{' '}
+                  <span className='font-extralight'>{network.secondName ?? ''}</span>
+                </h2>
                 <p className="text-gray-400">{network.fullName}</p>
               </div>
             </div>

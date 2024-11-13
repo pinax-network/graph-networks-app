@@ -28,7 +28,7 @@ export function NetworkCard({ network, onClick }: NetworkCardProps) {
       className="bg-slate-800 rounded-lg p-6 cursor-pointer hover:bg-slate-700 transition-colors relative border border-slate-700/30"
     >
       <div className="flex items-center gap-4">
-        <div className="relative w-16 h-16">
+        <div className="relative w-16 h-16 -ml-2">
           <NetworkIcon
             size={64}
             className="object-contain"
@@ -56,7 +56,9 @@ export function NetworkCard({ network, onClick }: NetworkCardProps) {
           )}
         </div>
         <div>
-          <h3 className="text-xl font-bold text-white">{network.shortName} {network.secondName ?? ''}</h3>
+          <h3 className="text-xl text-white"><span className="font-extrabold">{network.shortName}</span>{' '}
+            <span className='font-extralight'>{network.secondName ?? ''}</span>
+          </h3>
           <p className="text-gray-400">{network.fullName}</p>
         </div>
       </div>
