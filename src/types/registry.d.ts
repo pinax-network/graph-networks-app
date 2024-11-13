@@ -35,6 +35,10 @@ export interface Network {
    */
   shortName: string;
   /**
+   * Second display name of the network, i.e. Sepolia, Nova
+   */
+  secondName?: string;
+  /**
    * Display name of the network, i.e. Ethereum Mainnet, Bitcoin Testnet
    */
   fullName: string;
@@ -54,7 +58,14 @@ export interface Network {
     /**
      * Kind of relation
      */
-    kind: "testnetOf" | "beaconOf" | "forkedFrom" | "l2Of" | "shardOf" | "evmOf" | "other";
+    kind:
+      | "testnetOf"
+      | "beaconOf"
+      | "forkedFrom"
+      | "l2Of"
+      | "shardOf"
+      | "evmOf"
+      | "other";
     /**
      * Id of the related network, i.e. mainnet, near-mainnet
      */
@@ -158,6 +169,12 @@ export interface Network {
   }[];
 }
 export interface Service {
-  provider: "e&n" | "pinax" | "graphops" | "streamingfast" | "messari" | "semiotic";
+  provider:
+    | "e&n"
+    | "pinax"
+    | "graphops"
+    | "streamingfast"
+    | "messari"
+    | "semiotic";
   url?: string;
 }

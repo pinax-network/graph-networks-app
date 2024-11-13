@@ -56,7 +56,7 @@ export function NetworkCard({ network, onClick }: NetworkCardProps) {
           )}
         </div>
         <div>
-          <h3 className="text-xl font-bold text-white">{network.shortName}</h3>
+          <h3 className="text-xl font-bold text-white">{network.shortName} {network.secondName ?? ''}</h3>
           <p className="text-gray-400">{network.fullName}</p>
         </div>
       </div>
