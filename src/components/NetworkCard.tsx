@@ -73,7 +73,7 @@ export function NetworkCard({ network, onClick }: NetworkCardProps) {
                   style={{
                     backgroundColor: network.services?.[key as keyof typeof network.services]?.length
                       ? color
-                      : '#4B55634D'
+                      : '#494755'
                   }}
                 />
               </TooltipTrigger>

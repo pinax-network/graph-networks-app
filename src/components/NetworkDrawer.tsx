@@ -74,7 +74,11 @@ function CopyButton({ text }: { text: string }) {
     </button>
   );
 }
-const getProviderServiceName = (provider: string) => {
+
+type ServiceType = 'subgraphs' | 'sps' | 'firehose' | 'substreams';
+type Provider = 'e&n' | 'pinax' | 'streamingfast' | 'messari' | 'graphops' | 'semiotic';
+
+const getProviderServiceName = (provider: Provider) => {
   switch (provider) {
     case 'e&n': return 'Subgraph Studio';
     case 'pinax': return 'Pinax';
@@ -86,20 +90,68 @@ const getProviderServiceName = (provider: string) => {
   }
 }
 
-interface ServiceSectionProps {
-  title: string;
-  color: string;
-  services?: Array<{ provider: string; url?: string }>;
-  showUrl?: boolean;
+function getServiceConfig(type: ServiceType) {
+  switch (type) {
+    case 'subgraphs':
+      return {
+        title: 'Subgraphs',
+        color: '#66D8FF',
+        showUrl: false
+      };
+    case 'sps':
+      return {
+        title: 'Substreams-powered Subgraphs',
+        color: '#4BCA81',
+        showUrl: false
+      };
+    case 'firehose':
+      return {
+        title: 'Firehose',
+        color: '#FFA801',
+        showUrl: true
+      };
+    case 'substreams':
+      return {
+        title: 'Substreams',
+        color: '#FF79C6',
+        showUrl: true
+      };
+    default:
+      return {
+        title: type,
+        color: '#4C66FF',
+        showUrl: false
+      };
+  }
 }
 
-function ServiceSection({ title, color, services = [], showUrl = false }: ServiceSectionProps) {
+function getRelationText(kind: string): string {
+  switch (kind) {
+    case 'testnetOf': return 'Testnet of';
+    case 'beaconOf': return 'Beacon chain of';
+    case 'forkedFrom': return 'Forked from';
+    case 'l2Of': return 'Rolls up to';
+    case 'shardOf': return 'Shard of';
+    case 'evmOf': return 'EVM chain of';
+    default: return 'Related to';
+  }
+}
+
+
+interface ServiceSectionProps {
+  type: ServiceType;
+  services?: Array<{ provider: Provider; url?: string }>;
+}
+
+function ServiceSection({ type, services = [] }: ServiceSectionProps) {
+  const { title, color, showUrl } = getServiceConfig(type);
+
   return (
     <div>
       <h3 className="text-gray-400 mb-2 flex items-center gap-2 text-sm sm:text-base">
         <span
           className="w-3 h-3 rounded-full inline-block flex-shrink-0"
-          style={{ backgroundColor: color }}
+          style={{ backgroundColor: services?.length ? color : '#494755' }}
         />
         {title}
       </h3>
@@ -120,18 +172,6 @@ function ServiceSection({ title, color, services = [], showUrl = false }: Servic
   );
 }
 
-function getRelationText(kind: string): string {
-  switch (kind) {
-    case 'testnetOf': return 'Testnet of';
-    case 'beaconOf': return 'Beacon chain of';
-    case 'forkedFrom': return 'Forked from';
-    case 'l2Of': return 'Rolls up to';
-    case 'shardOf': return 'Shard of';
-    case 'evmOf': return 'EVM chain of';
-    default: return 'Related to';
-  }
-}
-
 export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: NetworkDrawerProps) {
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
@@ -145,15 +185,6 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
       document.removeEventListener('keydown', handleEscapeKey);
     };
   }, [onClose]);
-
-  const getColors = () => {
-    return {
-      subgraphs: network.services?.subgraphs?.length ? '#66D8FF' : '#4B55634D',
-      sps: network.services?.sps?.length ? '#4BCA81' : '#4B55634D',
-      substreams: network.services?.substreams?.length ? '#FF79C6' : '#4B55634D',
-      firehose: network.services?.firehose?.length ? '#FFA801' : '#4B55634D',
-    }
-  }
 
   return (
     <>
@@ -277,34 +308,17 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                 </div>
               )}
 
-              {network.services && (
-                <div className="col-span-full">
-                  <div className="grid grid-cols-1 gap-6">
+              <div className="col-span-full">
+                <div className="grid grid-cols-1 gap-6">
+                  {Object.entries(network.services || {}).map(([type, services]) => (
                     <ServiceSection
-                      title="Subgraphs"
-                      color={getColors().subgraphs}
-                      services={network.services.subgraphs}
+                      key={type}
+                      type={type as ServiceType}
+                      services={services}
                     />
-                    <ServiceSection
-                      title="Substreams-powered Subgraphs"
-                      color={getColors().sps}
-                      services={network.services.sps}
-                    />
-                    <ServiceSection
-                      title="Firehose"
-                      color={getColors().firehose}
-                      services={network.services.firehose}
-                      showUrl
-                    />
-                    <ServiceSection
-                      title="Substreams"
-                      color={getColors().substreams}
-                      services={network.services.substreams}
-                      showUrl
-                    />
-                  </div>
+                  ))}
                 </div>
-              )}
+              </div>
 
               <div className="col-span-full">
                 <InfoLabel>The Graph Network</InfoLabel>
