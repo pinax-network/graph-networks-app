@@ -155,26 +155,19 @@ export function NetworksContainer({ networks, subgraphCounts }: { networks: Netw
             onClick={() => setSelectedNetwork(network)}
           />
         ))}
-        <a
-            href="https://github.com/graphprotocol/networks-registry"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
-        >
-            <NetworkCard
-                key="missing_chain"
-                network={{
-                    id: "missing_chain",
-                    shortName: "Missing a chain?",
-                    fullName: "Add it to the Registry!",
-                    caip2Id: "",
-                    networkType: "mainnet",
-                    services: {},
-                    issuanceRewards: false,
-                }}
-                onClick={() => {}}
-            />
-        </a>
+        <NetworkCard
+            key="missing_chain"
+            network={{
+                id: "missing_chain",
+                shortName: "Missing a chain?",
+                fullName: "Add it to the Registry!",
+                caip2Id: "",
+                networkType: "mainnet",
+                services: {},
+                issuanceRewards: false,
+            }}
+            onClick={() => window.open('https://github.com/graphprotocol/networks-registry', '_blank')}
+        />
       </div>
 
       { selectedNetwork &&

@@ -6,14 +6,12 @@ import { Network } from '@/types/registry';
 import { NetworksContainer } from '@/components/NetworksContainer';
 import { Loader2 } from 'lucide-react';
 import { NetworkCount } from './api/subgraphs/route';
-import { NetworkGraph } from '@/components/NetworkGraph';
 
 export default function Home() {
   const [networks, setNetworks] = useState<Network[]>([]);
   const [subgraphCounts, setSubgraphCounts] = useState<NetworkCount[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [version, setVersion] = useState('0.0.0');
-  const [isGraphOpen, setIsGraphOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,24 +77,14 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              {networks.length > 0 && (
-                <button
-                  onClick={() => setIsGraphOpen(true)}
-                  className="px-4 py-2 bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors"
-                >
-                  View Network Graph
-                </button>
-              )}
-              { networks.length > 0 && (
-                <div className="hidden sm:block text-right">
-                  <div className="text-[50px] font-bold text-[#F8F6FF] leading-none">
-                    {networks.length}
-                  </div>
-                  <div className="text-l text-gray-300/80">networks</div>
+            { networks.length > 0 && (
+              <div className="hidden sm:block text-right">
+                <div className="text-[50px] font-bold text-[#F8F6FF] leading-none">
+                  {networks.length}
                 </div>
-              )}
-            </div>
+                <div className="text-l text-gray-300/80">networks</div>
+              </div>
+            )}
           </div>
         </header>
 
@@ -110,11 +98,6 @@ export default function Home() {
           )}
         </main>
       </div>
-      <NetworkGraph
-        isOpen={isGraphOpen}
-        onClose={() => setIsGraphOpen(false)}
-        networks={networks}
-      />
     </div>
   );
 }
