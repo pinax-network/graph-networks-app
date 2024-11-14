@@ -137,6 +137,18 @@ function getRelationText(kind: string): string {
   }
 }
 
+function getIndexerDocText(kind: string, url: string): string {
+  switch (kind) {
+    case 'rpc': {
+      if (url.includes('archive-nodes-101')) {
+        return 'Archive Nodes 101';
+      }
+      return 'Running RPC Node';
+    }
+    case 'firehose': return 'Running Firehose';
+    default: return 'Running Indexer Stack';
+  }
+}
 
 interface ServiceSectionProps {
   type: ServiceType;
@@ -293,9 +305,7 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                     {network.indexerDocsUrls.map((doc, index) => (
                       <div key={index} className="flex items-center gap-2">
                         <InfoLink href={doc.url}>
-                          {doc.kind === 'rpc' ? 'Archive Node Setup' :
-                           doc.kind === 'firehose' ? 'Firehose Setup' :
-                           'Other Setup'}
+                          {getIndexerDocText(doc.kind, doc.url)}
                         </InfoLink>
                         {doc.hint && (
                           <span className="text-sm text-gray-400">
