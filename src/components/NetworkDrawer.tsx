@@ -76,18 +76,12 @@ function CopyButton({ text }: { text: string }) {
 }
 
 type ServiceType = 'subgraphs' | 'sps' | 'firehose' | 'substreams';
-type Provider = 'e&n' | 'pinax' | 'streamingfast' | 'messari' | 'graphops' | 'semiotic';
 
-const getProviderServiceName = (provider: Provider) => {
-  switch (provider) {
-    case 'e&n': return 'Subgraph Studio';
-    case 'pinax': return 'Pinax';
-    case 'streamingfast': return 'StreamingFast';
-    case 'messari': return 'Messari';
-    case 'graphops': return 'GraphOps';
-    case 'semiotic': return 'Semiotic';
-    default: return provider;
+const getSubgraphStudioName = (url: string) => {
+  if (url.includes('api.thegraph.com')) {
+    return 'Subgraph Studio';
   }
+  return 'N/A';
 }
 
 function getServiceConfig(type: ServiceType) {
@@ -137,22 +131,19 @@ function getRelationText(kind: string): string {
   }
 }
 
-function getIndexerDocText(kind: string, url: string): string {
-  switch (kind) {
-    case 'rpc': {
-      if (url.includes('archive-nodes-101')) {
-        return 'Archive Nodes 101';
-      }
-      return 'Running RPC Node';
-    }
-    case 'firehose': return 'Running Firehose';
-    default: return 'Running Indexer Stack';
+function getIndexerDocText(url: string, description?: string): string {
+  if (description) {
+    return description;
   }
+  if (url.includes('infradao.com')) {
+    return 'InfraDAO Docs';
+  }
+  return 'Indexer Docs';
 }
 
 interface ServiceSectionProps {
   type: ServiceType;
-  services?: Array<{ provider: Provider; url?: string }>;
+  services?: string[];
 }
 
 function ServiceSection({ type, services = [] }: ServiceSectionProps) {
@@ -169,12 +160,12 @@ function ServiceSection({ type, services = [] }: ServiceSectionProps) {
       </h3>
       {services && (
         <div className="space-y-2 max-w-full">
-          {services.map((service, index) => (
+          {services.map((url, index) => (
             <div key={index} className="min-w-0">
               {showUrl ? (
-                <InfoCode text={service.url ?? ''} />
+                <InfoCode text={url ?? 'N/A'} />
               ) : (
-                <InfoText bold>{getProviderServiceName(service.provider)}</InfoText>
+                <InfoText bold>{getSubgraphStudioName(url)}</InfoText>
               )}
             </div>
           ))}
@@ -307,13 +298,8 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                     {network.indexerDocsUrls.map((doc, index) => (
                       <div key={index} className="flex items-center gap-2">
                         <InfoLink href={doc.url}>
-                          {getIndexerDocText(doc.kind, doc.url)}
+                          {getIndexerDocText(doc.url, doc.description)}
                         </InfoLink>
-                        {doc.hint && (
-                          <span className="text-sm text-gray-400">
-                            ({doc.hint})
-                          </span>
-                        )}
                       </div>
                     ))}
                   </div>

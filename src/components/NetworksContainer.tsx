@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Network } from '@/types/registry';
+import { Network, NetworkType } from '@/types/registry';
 import { NetworkCard } from './NetworkCard';
 import { NetworkDrawer } from './NetworkDrawer';
 import { Switch } from '@/components/ui/switch';
@@ -162,7 +162,7 @@ export function NetworksContainer({ networks, subgraphCounts }: { networks: Netw
                 shortName: "Missing a chain?",
                 fullName: "Add it to the Registry!",
                 caip2Id: "",
-                networkType: "mainnet",
+                networkType: "mainnet" as NetworkType,
                 services: {},
                 issuanceRewards: false,
             }}
