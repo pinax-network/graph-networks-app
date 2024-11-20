@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Network } from '@/types/registry';
+import { Network, NetworksRegistry } from '@pinax/graph-networks-registry';
 import { NetworksContainer } from '@/components/NetworksContainer';
 import { Loader2 } from 'lucide-react';
 import { NetworkCount } from './api/subgraphs/route';
@@ -22,7 +22,8 @@ export default function Home() {
           fetch('/api/subgraphs')
         ]);
 
-        const networksData = await networksResponse.json();
+        const networksDataText = await networksResponse.text();
+        const networksData = NetworksRegistry.fromJson(networksDataText);
         const subgraphsData = await subgraphsResponse.json();
         setNetworks(networksData.networks);
         setSubgraphCounts(subgraphsData);

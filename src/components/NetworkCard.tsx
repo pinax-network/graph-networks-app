@@ -1,4 +1,4 @@
-import { Network } from '@/types/registry';
+import { Network } from '@pinax/graph-networks-registry';
 import { NetworkIcon } from '@web3icons/react'
 import Image from 'next/image';
 import {

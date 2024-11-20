@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Network, NetworkType } from '@/types/registry';
+import { Network, NetworkType } from '@pinax/graph-networks-registry';
 import { NetworkCard } from './NetworkCard';
 import { NetworkDrawer } from './NetworkDrawer';
 import { Switch } from '@/components/ui/switch';

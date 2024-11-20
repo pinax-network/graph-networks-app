@@ -1,4 +1,4 @@
-import { Network } from "@/types/registry";
+import { Network } from "@pinax/graph-networks-registry";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 

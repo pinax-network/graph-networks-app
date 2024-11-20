@@ -327,6 +327,11 @@
   resolved "https://registry.yarnpkg.com/@nolyfill/is-core-module/-/is-core-module-1.0.39.tgz#3dc35ba0f1e66b403c00b39344f870298ebb1c8e"
   integrity sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==
 
+"@pinax/graph-networks-registry@^0.6.2":
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/@pinax/graph-networks-registry/-/graph-networks-registry-0.6.3.tgz#9f66c89fc5eba15d4c23da87ce8bfb977d702f36"
+  integrity sha512-82ItkV7C9AbNtHiPWpGYac/JxKTRogov8BWILsIFAHS7d/CKE4HKFxTchdprTg5Lz3rSjyMmEb4HDxvu6WkiYA==
+
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
