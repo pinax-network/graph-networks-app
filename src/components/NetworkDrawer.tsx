@@ -78,7 +78,7 @@ function CopyButton({ text }: { text: string }) {
 type ServiceType = 'subgraphs' | 'sps' | 'firehose' | 'substreams';
 
 const getSubgraphStudioName = (url: string) => {
-  if (url.includes('api.thegraph.com')) {
+  if (url.includes('api.studio.thegraph.com')) {
     return 'Subgraph Studio';
   }
   return 'N/A';
