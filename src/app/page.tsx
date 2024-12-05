@@ -1,6 +1,6 @@
 'use client';
 
-import useSWR from "swr";
+import useSWR from "swr/immutable";
 import Image from 'next/image';
 import { NetworksRegistry } from '@pinax/graph-networks-registry';
 import { NetworksContainer } from '@/components/NetworksContainer';
