@@ -13,7 +13,7 @@ type SubgraphResponse = {
 
 export type NetworkCount = {
   network: string;
-  subgraphsCount: number;
+  nativeCount: number;
   spsCount: number;
 };
 
@@ -68,15 +68,16 @@ async function fetchAllSubgraphs(
 function countNetworks(
   deployments: SubgraphResponse["subgraphDeployments"]
 ): NetworkCount[] {
-  const networkCounts = new Map<string, { total: number; sps: number }>();
+  const networkCounts = new Map<string, { native: number; sps: number }>();
 
   deployments.forEach((deployment) => {
     const network = deployment.manifest.network;
-    const current = networkCounts.get(network) || { total: 0, sps: 0 };
+    const current = networkCounts.get(network) || { native: 0, sps: 0 };
 
-    current.total += 1;
     if (deployment.manifest.poweredBySubstreams) {
       current.sps += 1;
+    } else {
+      current.native += 1;
     }
 
     networkCounts.set(network, current);
@@ -84,7 +85,7 @@ function countNetworks(
 
   return Array.from(networkCounts.entries()).map(([network, counts]) => ({
     network,
-    subgraphsCount: counts.total,
+    nativeCount: counts.native,
     spsCount: counts.sps,
   }));
 }

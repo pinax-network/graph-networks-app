@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 interface NetworkDrawerProps {
   network: Network;
-  subgraphCounts?: { subgraphsCount: number; spsCount: number };
+  subgraphCounts?: { nativeCount: number; spsCount: number };
   onClose: () => void;
   isOpen: boolean;
 }
@@ -335,12 +335,14 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                   </div>
                   { subgraphCounts && (
                     <>
-                      <InfoText>
-                        <span className="font-bold">{subgraphCounts.subgraphsCount}</span> subgraphs
-                      </InfoText>
+                      {subgraphCounts.nativeCount > 0 && (
+                        <InfoText>
+                          <span className="font-bold">{subgraphCounts.nativeCount}</span> Native Subgraphs
+                        </InfoText>
+                      )}
                       {subgraphCounts.spsCount > 0 && (
                         <InfoText>
-                          <span className="font-bold">{subgraphCounts.spsCount}</span> substreams-powered subgraphs
+                          <span className="font-bold">{subgraphCounts.spsCount}</span> Substreams-powered Subgraphs
                         </InfoText>
                       )}
                       <InfoLink href={`https://thegraph.com/explorer?indexedNetwork=${network.id}`}>
