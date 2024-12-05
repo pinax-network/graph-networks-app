@@ -1,42 +1,38 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import useSWR from "swr";
 import Image from 'next/image';
-import { Network, NetworksRegistry } from '@pinax/graph-networks-registry';
+import { NetworksRegistry } from '@pinax/graph-networks-registry';
 import { NetworksContainer } from '@/components/NetworksContainer';
 import { Loader2 } from 'lucide-react';
-import { NetworkCount } from './api/subgraphs/route';
+
+const fetcherJson = (url: string) => fetch(url).then(res => res.json());
+const fetcherText = (url: string) => fetch(url).then(res => res.text());
+
+function useNetworks () {
+  const { data, error, isLoading } = useSWR(`/api/networks`, fetcherText);
+
+  const networksData = data ? NetworksRegistry.fromJson(data) : null;
+  return {
+    networks: networksData?.networks ?? [],
+    version: networksData?.version ?? '0.0.0',
+    isLoading,
+    error
+  }
+}
+
+function useSubgraphs () {
+  const { data, error, isLoading } = useSWR(`/api/subgraphs`, fetcherJson);
+  return {
+    subgraphCounts: data ?? {},
+    isLoading,
+    error
+  }
+}
 
 export default function Home() {
-  const [networks, setNetworks] = useState<Network[]>([]);
-  const [subgraphCounts, setSubgraphCounts] = useState<NetworkCount[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [version, setVersion] = useState('0.0.0');
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const [networksResponse, subgraphsResponse] = await Promise.all([
-          fetch('/api/networks'),
-          fetch('/api/subgraphs')
-        ]);
-
-        const networksDataText = await networksResponse.text();
-        const networksData = NetworksRegistry.fromJson(networksDataText);
-        const subgraphsData = await subgraphsResponse.json();
-        setNetworks(networksData.networks);
-        setSubgraphCounts(subgraphsData);
-        setVersion(networksData.version);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const { networks, version, isLoading/*, error: errorNetworks*/ } = useNetworks();
+  const { subgraphCounts/*, error: errorSubgraphs*/ } = useSubgraphs();
 
   return (
     <div
@@ -81,7 +77,7 @@ export default function Home() {
             { networks.length > 0 && (
               <div className="hidden sm:block text-right">
                 <div className="text-[50px] font-bold text-[#F8F6FF] leading-none">
-                  {networks.length}
+                  {networks?.length}
                 </div>
                 <div className="text-l text-gray-300/80">networks</div>
               </div>
