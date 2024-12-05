@@ -5,13 +5,19 @@ import Image from 'next/image';
 import { NetworksRegistry } from '@pinax/graph-networks-registry';
 import { NetworksContainer } from '@/components/NetworksContainer';
 import { Loader2 } from 'lucide-react';
+import { toast, Toaster } from 'sonner';
+import React from "react";
 
-const fetcherJson = (url: string) => fetch(url).then(res => res.json());
-const fetcherText = (url: string) => fetch(url).then(res => res.text());
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}`);
+  }
+  return await res.text();
+};
 
 function useNetworks () {
-  const { data, error, isLoading } = useSWR(`/api/networks`, fetcherText);
-
+  const { data, error, isLoading } = useSWR(`/api/networks`, fetcher);
   const networksData = data ? NetworksRegistry.fromJson(data) : null;
   return {
     networks: networksData?.networks ?? [],
@@ -22,17 +28,26 @@ function useNetworks () {
 }
 
 function useSubgraphs () {
-  const { data, error, isLoading } = useSWR(`/api/subgraphs`, fetcherJson);
+  const { data, error, isLoading } = useSWR(`/api/subgraphs`, fetcher);
   return {
-    subgraphCounts: data ?? {},
+    subgraphCounts: JSON.parse(data || '[]'),
     isLoading,
     error
   }
 }
 
 export default function Home() {
-  const { networks, version, isLoading/*, error: errorNetworks*/ } = useNetworks();
-  const { subgraphCounts/*, error: errorSubgraphs*/ } = useSubgraphs();
+  const { networks, version, isLoading, error: networksError } = useNetworks();
+  const { subgraphCounts, error: subgraphsError} = useSubgraphs();
+
+  React.useEffect(() => {
+    if (networksError) {
+      toast.error(`Failed to fetch networks data: ${networksError}`);
+    }
+    if (subgraphsError) {
+      toast.error(`Failed to fetch subgraphs data: ${subgraphsError}`);
+    }
+  }, [networksError, subgraphsError]);
 
   return (
     <div
@@ -45,6 +60,7 @@ export default function Home() {
         backgroundAttachment: 'fixed',
       }}
     >
+      <Toaster position="top-right" theme="dark" />
       <div className="inset-0 bg-black/50 fixed" />
       <div className="relative z-10 flex-grow">
         <header className="max-w-7xl mx-auto mb-12">
