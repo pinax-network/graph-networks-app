@@ -38,7 +38,7 @@ export default function Home() {
     <div
       className="min-h-screen text-white p-8 relative flex flex-col"
       style={{
-        backgroundImage: 'url("/the-graph-background.jpg")',
+        backgroundImage: 'url("/the-graph-background.webp")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
