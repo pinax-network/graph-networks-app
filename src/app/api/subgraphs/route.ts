@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 const BATCH_SIZE = 1000; // Number of records to fetch per request
-const CACHE_TTL = 60 * 60; // Cache for 1 hour
+const CACHE_TTL = 5 * 60; // Cache for 5 minutes
 type SubgraphResponse = {
   subgraphDeployments: {
     manifest: {
@@ -47,7 +47,7 @@ async function fetchAllSubgraphs(
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ query }),
-        next: { revalidate: CACHE_TTL }, // Cache for 1 hour
+        next: { revalidate: CACHE_TTL }, // Cache for 5 minutes
       }
     );
 
@@ -68,20 +68,21 @@ async function fetchAllSubgraphs(
 function countNetworks(
   deployments: SubgraphResponse["subgraphDeployments"]
 ): NetworkCount[] {
-  const networkCounts = new Map<string, { native: number; sps: number }>();
+  const networkCounts = deployments
+    .filter((deployment) => deployment.manifest?.network)
+    .reduce((acc, deployment) => {
+      const network = deployment.manifest.network;
+      const current = acc.get(network) || { native: 0, sps: 0 };
 
-  deployments.forEach((deployment) => {
-    const network = deployment.manifest.network;
-    const current = networkCounts.get(network) || { native: 0, sps: 0 };
+      if (deployment.manifest.poweredBySubstreams) {
+        current.sps += 1;
+      } else {
+        current.native += 1;
+      }
 
-    if (deployment.manifest.poweredBySubstreams) {
-      current.sps += 1;
-    } else {
-      current.native += 1;
-    }
-
-    networkCounts.set(network, current);
-  });
+      acc.set(network, current);
+      return acc;
+    }, new Map<string, { native: number; sps: number }>());
 
   return Array.from(networkCounts.entries()).map(([network, counts]) => ({
     network,
