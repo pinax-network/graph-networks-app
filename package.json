@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@pinax/graph-networks-registry": "^0.6.5",
+    "@pinax/graph-networks-registry": "^0.6.7",
     "@radix-ui/react-switch": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.1.4",
     "@web3icons/react": "^3.12.1",
