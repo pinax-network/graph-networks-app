@@ -9,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 export function getNetworkNameAndVariant(network: Network) {
   return network.icon?.web3Icons
     ? ({
-        network: network.icon.web3Icons.name,
+        id: network.icon.web3Icons.name,
         variant:
           network.icon.web3Icons.variants?.length === 1 &&
           network.icon.web3Icons.variants[0] === "mono"
@@ -17,7 +17,7 @@ export function getNetworkNameAndVariant(network: Network) {
             : "branded",
       } as const)
     : ({
-        network: "ethereum",
+        id: "ethereum",
         variant: "mono",
       } as const);
 }
