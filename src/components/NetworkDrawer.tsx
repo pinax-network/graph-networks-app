@@ -31,7 +31,7 @@ function InfoLink({ href, children }: { href: string; children: React.ReactNode 
       className="text-blue-400 hover:text-blue-300 inline-flex items-center gap-2 text-sm sm:text-base"
     >
       <span className="truncate">{children}</span>
-      <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
       </svg>
     </a>
@@ -153,7 +153,7 @@ function ServiceSection({ type, services = [] }: ServiceSectionProps) {
     <div>
       <h3 className="text-gray-400 mb-2 flex items-center gap-2 text-sm sm:text-base">
         <span
-          className="w-3 h-3 rounded-full inline-block flex-shrink-0"
+          className="w-3 h-3 rounded-full inline-block shrink-0"
           style={{ backgroundColor: services?.length ? color : '#494755' }}
         />
         {title}
@@ -201,7 +201,7 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
       />
 
       <div
-        className={`fixed right-0 top-0 h-full w-full sm:w-[580px] bg-slate-800/90 backdrop-blur-sm shadow-xl transform transition-transform duration-500 ease-in-out z-50 ${
+        className={`fixed right-0 top-0 h-full w-full sm:w-[580px] bg-slate-800/90 backdrop-blur-xs shadow-xl transform transition-transform duration-500 ease-in-out z-50 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >

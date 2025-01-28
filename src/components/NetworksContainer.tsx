@@ -96,13 +96,13 @@ export function NetworksContainer({ networks, subgraphCounts }: { networks: Netw
   return (
     <>
       <div className="flex flex-wrap items-center gap-6 mb-6">
-        <div className="flex-grow max-w-md relative">
+        <div className="grow max-w-md relative">
           <input
             type="text"
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-1.5 bg-slate-800/50 rounded-lg border border-gray-700 focus:border-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-600 text-white placeholder:text-gray-400"
+            className="w-full px-4 py-1.5 bg-slate-800/50 rounded-lg border border-gray-700 focus:border-gray-600 focus:outline-hidden focus:ring-1 focus:ring-gray-600 text-white placeholder:text-gray-400"
           />
           {searchQuery && (
             <button

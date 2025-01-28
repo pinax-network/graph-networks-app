@@ -62,7 +62,7 @@ export default function Home() {
     >
       <Toaster position="top-right" theme="dark" />
       <div className="inset-0 bg-black/50 fixed" />
-      <div className="relative z-10 flex-grow">
+      <div className="relative z-10 grow">
         <header className="max-w-7xl mx-auto mb-12">
           <div className="flex items-center justify-between mb-2">
             <div className="flex flex-col">
