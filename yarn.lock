@@ -684,17 +684,17 @@
     "@typescript-eslint/types" "8.18.1"
     eslint-visitor-keys "^4.2.0"
 
-"@web3icons/common@0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@web3icons/common/-/common-0.10.0.tgz#63f50e65d8fe2ecc30a831d7294740d984be9c25"
-  integrity sha512-Ksh9CAkxNtj9FPiBCNoctqj8ieS7eBcixtm4+Xt0ralK/35MltSrNizMYfrwXAlF9M3ACqRBkZbrHnIEPsrdLg==
+"@web3icons/common@0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@web3icons/common/-/common-0.11.0.tgz#2f0ba79434c00873d255a67077b54eeb22bb89ef"
+  integrity sha512-QPlenCO2f/y9AQWHP1Zc93TPJWmjUKarfZvY36sX/ZINRwcqarZRaLTFxAkXkttVwK98gaGhd4Lx4PVHtxwSXg==
 
-"@web3icons/react@^3.12.1":
-  version "3.16.0"
-  resolved "https://registry.yarnpkg.com/@web3icons/react/-/react-3.16.0.tgz#9d4a9b17571838a49f8d960575473015392d0858"
-  integrity sha512-EDTKJA0Q9aR6ihiwaMZrJjwC/N0fteJd3doV2wOYm6/LiRQaWAZYbL9pUE0dVuuukSQC1MDL8lSU/qGZJ8ewJg==
+"@web3icons/react@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@web3icons/react/-/react-4.0.0.tgz#7cd22e6daac44cf6bf68a55fb2651f3a67678ec6"
+  integrity sha512-XZpHrHjrvruXFPpCssFsjeXW8zkYiF9UCfUBJTCyXaENtYJgFM1wj3JEJhJ9Xx4dVe5S+gy878KPsZZyfe3jyw==
   dependencies:
-    "@web3icons/common" "0.10.0"
+    "@web3icons/common" "0.11.0"
     react "^18.2.0"
 
 acorn-jsx@^5.3.2:

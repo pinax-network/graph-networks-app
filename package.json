@@ -12,7 +12,7 @@
     "@pinax/graph-networks-registry": "^0.6.7",
     "@radix-ui/react-switch": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.1.4",
-    "@web3icons/react": "^3.12.1",
+    "@web3icons/react": "^4.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.474.0",
