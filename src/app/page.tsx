@@ -1,12 +1,12 @@
 'use client';
 
-import useSWR from "swr";
+import useSWR from 'swr';
 import Image from 'next/image';
 import { NetworksRegistry } from '@pinax/graph-networks-registry';
 import { NetworksContainer } from '@/components/NetworksContainer';
 import { Loader2 } from 'lucide-react';
 import { toast, Toaster } from 'sonner';
-import React from "react";
+import React from 'react';
 
 const fetcher = async (url: string) => {
   const res = await fetch(url);
@@ -16,29 +16,29 @@ const fetcher = async (url: string) => {
   return await res.text();
 };
 
-function useNetworks () {
-  const { data, error, isLoading } = useSWR(`/api/networks`, fetcher);
+function useNetworks() {
+  const { data, error, isLoading } = useSWR('/api/networks', fetcher);
   const networksData = data ? NetworksRegistry.fromJson(data) : null;
   return {
     networks: networksData?.networks ?? [],
     version: networksData?.version ?? '0.0.0',
     isLoading,
-    error
-  }
+    error,
+  };
 }
 
-function useSubgraphs () {
-  const { data, error, isLoading } = useSWR(`/api/subgraphs`, fetcher);
+function useSubgraphs() {
+  const { data, error, isLoading } = useSWR('/api/subgraphs', fetcher);
   return {
     subgraphCounts: JSON.parse(data || '[]'),
     isLoading,
-    error
-  }
+    error,
+  };
 }
 
 export default function Home() {
   const { networks, version, isLoading, error: networksError } = useNetworks();
-  const { subgraphCounts, error: subgraphsError} = useSubgraphs();
+  const { subgraphCounts, error: subgraphsError } = useSubgraphs();
 
   React.useEffect(() => {
     if (networksError) {
@@ -90,7 +90,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            { networks.length > 0 && (
+            {networks.length > 0 && (
               <div className="hidden sm:block text-right">
                 <div className="text-[50px] font-bold text-[#F8F6FF] leading-none">
                   {networks?.length}
@@ -102,7 +102,7 @@ export default function Home() {
         </header>
 
         <main className="max-w-7xl mx-auto">
-          { isLoading ? (
+          {isLoading ? (
             <div className="fixed inset-0 flex items-center justify-center -mt-[62px] -ml-[4px]">
               <Loader2 className="h-32 w-32 animate-spin text-white" />
             </div>
