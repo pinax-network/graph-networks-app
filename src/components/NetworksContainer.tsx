@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import type { NetworkCount } from '@/app/api/subgraphs/route';
+import { Switch } from '@/components/ui/switch';
 import type { Network, NetworkType } from '@pinax/graph-networks-registry';
+import { useState } from 'react';
 import { NetworkCard } from './NetworkCard';
 import { NetworkDrawer } from './NetworkDrawer';
-import { Switch } from '@/components/ui/switch';
-import type { NetworkCount } from '@/app/api/subgraphs/route';
 
 interface FilterToggleProps {
   checked: boolean;
@@ -68,7 +68,7 @@ export function NetworksContainer({
       // Check if network matches ALL active service filters
       return activeFilters.every(
         ([service]) =>
-          network.services?.[service as keyof typeof network.services]?.length ?? 0 > 0,
+          (network.services?.[service as keyof typeof network.services]?.length ?? 0) > 0,
       );
     })
     .sort((a, b) => {
@@ -107,6 +107,7 @@ export function NetworksContainer({
               onClick={() => setSearchQuery('')}
               className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-300 p-1"
               aria-label="Clear search"
+              type="button"
             >
               ✕
             </button>

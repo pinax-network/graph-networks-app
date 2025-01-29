@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "biome check .",
-    "format": "biome format . --write"
+    "lint": "biome check ./src",
+    "format": "biome check ./src --fix --unsafe"
   },
   "dependencies": {
     "@pinax/graph-networks-registry": "^0.6.7",

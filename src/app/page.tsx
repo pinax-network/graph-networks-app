@@ -1,12 +1,12 @@
 'use client';
 
-import useSWR from 'swr';
-import Image from 'next/image';
-import { NetworksRegistry } from '@pinax/graph-networks-registry';
 import { NetworksContainer } from '@/components/NetworksContainer';
+import { NetworksRegistry } from '@pinax/graph-networks-registry';
 import { Loader2 } from 'lucide-react';
-import { toast, Toaster } from 'sonner';
+import Image from 'next/image';
 import React from 'react';
+import { Toaster, toast } from 'sonner';
+import useSWR from 'swr';
 
 const fetcher = async (url: string) => {
   const res = await fetch(url);
