@@ -24,6 +24,11 @@ export function NetworkCard({ network, onClick }: NetworkCardProps) {
   return (
     <div
       onClick={onClick}
+      onKeyDown={(e) => {
+        if (['Enter', 'Space'].includes(e.key)) {
+          onClick();
+        }
+      }}
       className="bg-slate-800 rounded-lg p-6 cursor-pointer hover:bg-slate-700 transition-colors relative border border-slate-700/30"
     >
       <div className="flex items-center gap-4">
