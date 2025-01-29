@@ -148,27 +148,26 @@ export function NetworksContainer({
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredNetworks.map((network) => (
-          <NetworkCard
-            key={network.id}
-            network={network}
-            onClick={() => setSelectedNetwork(network)}
-          />
+          <div key={network.id}>
+            <NetworkCard network={network} onClick={() => setSelectedNetwork(network)} />
+          </div>
         ))}
-        <NetworkCard
-          key="missing_chain"
-          network={{
-            id: 'missing_chain',
-            shortName: 'Missing a chain?',
-            fullName: 'Add it to the Registry!',
-            caip2Id: '',
-            networkType: 'mainnet' as NetworkType,
-            services: {},
-            issuanceRewards: false,
-          }}
-          onClick={() =>
-            window.open('https://github.com/graphprotocol/networks-registry', '_blank')
-          }
-        />
+        <div key="missing_chain">
+          <NetworkCard
+            network={{
+              id: 'missing_chain',
+              shortName: 'Missing a chain?',
+              fullName: 'Add it to the Registry!',
+              caip2Id: '',
+              networkType: 'mainnet' as NetworkType,
+              services: {},
+              issuanceRewards: false,
+            }}
+            onClick={() =>
+              window.open('https://github.com/graphprotocol/networks-registry', '_blank')
+            }
+          />
+        </div>
       </div>
 
       {selectedNetwork && (

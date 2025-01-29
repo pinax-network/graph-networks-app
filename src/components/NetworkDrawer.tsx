@@ -68,7 +68,7 @@ function CopyButton({ text }: { text: string }) {
       onClick={handleCopy}
       className="ml-2 text-gray-400 hover:text-white transition-colors"
       title={copied ? 'Copied!' : 'Copy to clipboard'}
-      type="submit"
+      type="button"
     >
       {copied ? (
         <svg
@@ -194,8 +194,8 @@ function ServiceSection({ type, services = [] }: ServiceSectionProps) {
       </h3>
       {services && (
         <div className="space-y-2 max-w-full">
-          {services.map((url, index) => (
-            <div key={index} className="min-w-0">
+          {services.map((url) => (
+            <div key={url} className="min-w-0">
               {showUrl ? (
                 <InfoCode text={url ?? 'N/A'} />
               ) : (
@@ -232,6 +232,11 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
           isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onClick={onClose}
+        onKeyDown={(e) => {
+          if (['Enter', 'Space'].includes(e.key)) {
+            onClose();
+          }
+        }}
       />
 
       <div
@@ -244,7 +249,7 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
             <button
               onClick={onClose}
               className="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-400 hover:text-white transition-colors"
-              type="submit"
+              type="button"
             >
               <span className="sr-only">Close</span>
               <svg
@@ -293,10 +298,9 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                 <div>
                   <InfoLabel>Relations</InfoLabel>
                   <div className="space-y-2">
-                    {network.relations.map((relation, index) => (
-                      <InfoText key={index}>
-                        {getRelationText(relation.kind)}{' '}
-                        <span className="font-bold">{relation.network}</span>
+                    {network.relations.map(({ kind, network }) => (
+                      <InfoText key={`${kind}-${network}`}>
+                        {getRelationText(kind)} <span className="font-bold">{network}</span>
                       </InfoText>
                     ))}
                   </div>
@@ -307,11 +311,9 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                 <div>
                   <InfoLabel>Block Explorers</InfoLabel>
                   <div className="space-y-2">
-                    {network.explorerUrls.map((url, index) => (
-                      <div key={index} className="block">
-                        <InfoLink key={index} href={url}>
-                          {url}
-                        </InfoLink>
+                    {network.explorerUrls.map((url) => (
+                      <div key={url} className="block">
+                        <InfoLink href={url}>{url}</InfoLink>
                       </div>
                     ))}
                   </div>
@@ -329,8 +331,8 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                   <div>
                     <InfoLabel>RPC</InfoLabel>
                     <div className="space-y-2 max-w-full">
-                      {network.rpcUrls.map((url, index) => (
-                        <div key={index} className="flex items-start max-w-full">
+                      {network.rpcUrls.map((url) => (
+                        <div key={url} className="flex items-start max-w-full">
                           <InfoCode text={url} />
                         </div>
                       ))}
@@ -343,8 +345,8 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                 <div className="col-span-full">
                   <InfoLabel>Indexer Docs</InfoLabel>
                   <div className="space-y-2">
-                    {network.indexerDocsUrls.map((doc, index) => (
-                      <div key={index} className="flex items-center gap-2">
+                    {network.indexerDocsUrls.map((doc) => (
+                      <div key={doc.url} className="flex items-center gap-2">
                         <InfoLink href={doc.url}>
                           {getIndexerDocText(doc.url, doc.description)}
                         </InfoLink>
@@ -428,7 +430,7 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                 <button
                   onClick={() => setShowJson(!showJson)}
                   className="text-blue-400 hover:text-blue-300 transition-colors"
-                  type="submit"
+                  type="button"
                 >
                   {showJson ? 'Hide JSON' : 'View JSON'}
                 </button>
