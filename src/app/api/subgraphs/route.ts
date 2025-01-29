@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 
 const BATCH_SIZE = 1000; // Number of records to fetch per request
 const CACHE_TTL = 5 * 60; // Cache for 5 minutes
@@ -17,10 +17,8 @@ export type NetworkCount = {
   spsCount: number;
 };
 
-async function fetchAllSubgraphs(
-  apiKey: string
-): Promise<SubgraphResponse["subgraphDeployments"]> {
-  const allDeployments: SubgraphResponse["subgraphDeployments"] = [];
+async function fetchAllSubgraphs(apiKey: string): Promise<SubgraphResponse['subgraphDeployments']> {
+  const allDeployments: SubgraphResponse['subgraphDeployments'] = [];
   let hasMore = true;
   let skip = 0;
 
@@ -42,13 +40,13 @@ async function fetchAllSubgraphs(
     const response = await fetch(
       `https://gateway.thegraph.com/api/${apiKey}/subgraphs/id/DZz4kDTdmzWLWsV373w2bSmoar3umKKH9y82SUKr5qmp`,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ query }),
         next: { revalidate: CACHE_TTL }, // Cache for 5 minutes
-      }
+      },
     );
 
     const data: { data: SubgraphResponse } = await response.json();
@@ -65,9 +63,7 @@ async function fetchAllSubgraphs(
   return allDeployments;
 }
 
-function countNetworks(
-  deployments: SubgraphResponse["subgraphDeployments"]
-): NetworkCount[] {
+function countNetworks(deployments: SubgraphResponse['subgraphDeployments']): NetworkCount[] {
   const networkCounts = deployments
     .filter((deployment) => deployment.manifest?.network)
     .reduce((acc, deployment) => {
@@ -96,10 +92,7 @@ export async function GET() {
     const apiKey = process.env.GRAPH_API_KEY;
 
     if (!apiKey) {
-      return NextResponse.json(
-        { error: "API key not configured" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: 'API key not configured' }, { status: 500 });
     }
 
     const deployments = await fetchAllSubgraphs(apiKey);
@@ -107,14 +100,11 @@ export async function GET() {
 
     return NextResponse.json(networkCounts, {
       headers: {
-        "Cache-Control": `public, s-maxage=${CACHE_TTL}, stale-while-revalidate`,
+        'Cache-Control': `public, s-maxage=${CACHE_TTL}, stale-while-revalidate`,
       },
     });
   } catch (error) {
-    console.error("Error fetching subgraph counts:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch subgraph counts" },
-      { status: 502 }
-    );
+    console.error('Error fetching subgraph counts:', error);
+    return NextResponse.json({ error: 'Failed to fetch subgraph counts' }, { status: 502 });
   }
 }

@@ -1,12 +1,7 @@
 import { Network } from '@pinax/graph-networks-registry';
-import { NetworkIcon } from '@web3icons/react'
+import { NetworkIcon } from '@web3icons/react';
 import Image from 'next/image';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { getNetworkNameAndVariant } from '@/lib/utils';
 
 interface NetworkCardProps {
@@ -16,7 +11,11 @@ interface NetworkCardProps {
 
 const SERVICE_INDICATORS = [
   { key: 'subgraphs', color: '#66D8FF', hoverText: 'Subgraph in Studio' },
-  { key: 'sps', color: '#4BCA81', hoverText: 'Substreams-powered Subgraphs in Studio' },
+  {
+    key: 'sps',
+    color: '#4BCA81',
+    hoverText: 'Substreams-powered Subgraphs in Studio',
+  },
   { key: 'substreams', color: '#FF79C6', hoverText: 'Substreams' },
   { key: 'firehose', color: '#FFA801', hoverText: 'Firehose' },
 ] as const;
@@ -56,8 +55,9 @@ export function NetworkCard({ network, onClick }: NetworkCardProps) {
           )}
         </div>
         <div>
-          <h3 className="text-xl text-white"><span className="font-extrabold">{network.shortName}</span>{' '}
-            <span className='font-extralight'>{network.secondName ?? ''}</span>
+          <h3 className="text-xl text-white">
+            <span className="font-extrabold">{network.shortName}</span>{' '}
+            <span className="font-extralight">{network.secondName ?? ''}</span>
           </h3>
           <p className="text-gray-400">{network.fullName}</p>
         </div>
@@ -71,9 +71,10 @@ export function NetworkCard({ network, onClick }: NetworkCardProps) {
                 <div
                   className="w-4 h-4 rounded-full"
                   style={{
-                    backgroundColor: network.services?.[key as keyof typeof network.services]?.length
+                    backgroundColor: network.services?.[key as keyof typeof network.services]
+                      ?.length
                       ? color
-                      : '#494755'
+                      : '#494755',
                   }}
                 />
               </TooltipTrigger>

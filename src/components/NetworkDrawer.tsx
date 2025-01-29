@@ -15,11 +15,7 @@ function InfoLabel({ children }: { children: React.ReactNode }) {
 }
 
 function InfoText({ children, bold = false }: { children: React.ReactNode; bold?: boolean }) {
-  return (
-    <p className={`text-white break-words ${bold ? 'font-bold' : ''}`}>
-      {children}
-    </p>
-  );
+  return <p className={`text-white break-words ${bold ? 'font-bold' : ''}`}>{children}</p>;
 }
 
 function InfoLink({ href, children }: { href: string; children: React.ReactNode }) {
@@ -32,7 +28,12 @@ function InfoLink({ href, children }: { href: string; children: React.ReactNode 
     >
       <span className="truncate">{children}</span>
       <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+        />
       </svg>
     </a>
   );
@@ -59,7 +60,7 @@ function CopyButton({ text }: { text: string }) {
     <button
       onClick={handleCopy}
       className="ml-2 text-gray-400 hover:text-white transition-colors"
-      title={copied ? "Copied!" : "Copy to clipboard"}
+      title={copied ? 'Copied!' : 'Copy to clipboard'}
     >
       {copied ? (
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -67,8 +68,12 @@ function CopyButton({ text }: { text: string }) {
         </svg>
       ) : (
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+          />
         </svg>
       )}
     </button>
@@ -82,7 +87,7 @@ const getSubgraphStudioName = (url: string) => {
     return 'Subgraph Studio';
   }
   return 'N/A';
-}
+};
 
 function getServiceConfig(type: ServiceType) {
   switch (type) {
@@ -90,44 +95,51 @@ function getServiceConfig(type: ServiceType) {
       return {
         title: 'Subgraphs',
         color: '#66D8FF',
-        showUrl: false
+        showUrl: false,
       };
     case 'sps':
       return {
         title: 'Substreams-powered Subgraphs',
         color: '#4BCA81',
-        showUrl: false
+        showUrl: false,
       };
     case 'firehose':
       return {
         title: 'Firehose',
         color: '#FFA801',
-        showUrl: true
+        showUrl: true,
       };
     case 'substreams':
       return {
         title: 'Substreams',
         color: '#FF79C6',
-        showUrl: true
+        showUrl: true,
       };
     default:
       return {
         title: type,
         color: '#4C66FF',
-        showUrl: false
+        showUrl: false,
       };
   }
 }
 
 function getRelationText(kind: string): string {
   switch (kind) {
-    case 'testnetOf': return 'Testnet of';
-    case 'beaconOf': return 'Beacon chain of';
-    case 'forkedFrom': return 'Forked from';
-    case 'l2Of': return 'Rolls up to';
-    case 'shardOf': return 'Shard of';
-    case 'evmOf': return 'EVM chain of';
-    default: return 'Related to';
+    case 'testnetOf':
+      return 'Testnet of';
+    case 'beaconOf':
+      return 'Beacon chain of';
+    case 'forkedFrom':
+      return 'Forked from';
+    case 'l2Of':
+      return 'Rolls up to';
+    case 'shardOf':
+      return 'Shard of';
+    case 'evmOf':
+      return 'EVM chain of';
+    default:
+      return 'Related to';
   }
 }
 
@@ -213,7 +225,12 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
             >
               <span className="sr-only">Close</span>
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
 
@@ -226,7 +243,7 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
               <div>
                 <h2 className="text-xl sm:text-2xl text-white inline-block">
                   <span className="font-extrabold">{network.shortName}</span>{' '}
-                  <span className='font-extralight'>{network.secondName ?? ''}</span>
+                  <span className="font-extralight">{network.secondName ?? ''}</span>
                 </h2>
                 <p className="text-gray-400">{network.fullName}</p>
               </div>
@@ -248,7 +265,8 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                   <div className="space-y-2">
                     {network.relations.map((relation, index) => (
                       <InfoText key={index}>
-                        {getRelationText(relation.kind)} <span className="font-bold">{relation.network}</span>
+                        {getRelationText(relation.kind)}{' '}
+                        <span className="font-bold">{relation.network}</span>
                       </InfoText>
                     ))}
                   </div>
@@ -309,11 +327,7 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
               <div className="col-span-full">
                 <div className="grid grid-cols-1 gap-6">
                   {Object.entries(network.services || {}).map(([type, services]) => (
-                    <ServiceSection
-                      key={type}
-                      type={type as ServiceType}
-                      services={services}
-                    />
+                    <ServiceSection key={type} type={type as ServiceType} services={services} />
                   ))}
                 </div>
               </div>
@@ -323,26 +337,48 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                 <div className="space-y-2">
                   <div className="flex items-center">
                     {network.issuanceRewards ? (
-                      <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      <svg
+                        className="w-5 h-5 text-green-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
                       </svg>
                     ) : (
-                      <svg className="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      <svg
+                        className="w-5 h-5 text-red-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
                       </svg>
                     )}
                     <span className="text-white ml-2">Indexing Rewards</span>
                   </div>
-                  { subgraphCounts && (
+                  {subgraphCounts && (
                     <>
                       {subgraphCounts.nativeCount > 0 && (
                         <InfoText>
-                          <span className="font-bold">{subgraphCounts.nativeCount}</span> Native Subgraphs
+                          <span className="font-bold">{subgraphCounts.nativeCount}</span> Native
+                          Subgraphs
                         </InfoText>
                       )}
                       {subgraphCounts.spsCount > 0 && (
                         <InfoText>
-                          <span className="font-bold">{subgraphCounts.spsCount}</span> Substreams-powered Subgraphs
+                          <span className="font-bold">{subgraphCounts.spsCount}</span>{' '}
+                          Substreams-powered Subgraphs
                         </InfoText>
                       )}
                       <InfoLink href={`https://thegraph.com/explorer?indexedNetwork=${network.id}`}>
@@ -365,7 +401,11 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                 <InfoLink href="https://github.com/graphprotocol/networks-registry">
                   <div className="flex items-center gap-2">
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                      <path fillRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z" clipRule="evenodd" />
+                      <path
+                        fillRule="evenodd"
+                        d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                     Edit on GitHub
                   </div>
@@ -377,9 +417,7 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                   <div className="absolute top-3 right-3">
                     <CopyButton text={JSON.stringify(network, null, 2)} />
                   </div>
-                  <pre className="text-white text-sm">
-                    {JSON.stringify(network, null, 2)}
-                  </pre>
+                  <pre className="text-white text-sm">{JSON.stringify(network, null, 2)}</pre>
                 </div>
               )}
             </div>
