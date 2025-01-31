@@ -4,16 +4,23 @@ import { NetworksContainer } from '@/components/NetworksContainer';
 import { NetworksRegistry } from '@pinax/graph-networks-registry';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { Toaster, toast } from 'sonner';
 import useSWR from 'swr';
 
 const fetcher = async (url: string) => {
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`Error ${res.status}`);
+  try {
+    const res = await fetch(url);
+    if (!res?.ok) {
+      throw new Error(`${res.status}`);
+    }
+    return await res.text();
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error('Server is unreachable');
+    }
+    throw error;
   }
-  return await res.text();
 };
 
 function useNetworks() {
@@ -37,17 +44,24 @@ function useSubgraphs() {
 }
 
 export default function Home() {
+  const [hasShownNetworkError, setHasShownNetworkError] = useState(false);
+  const [hasShownSubgraphError, setHasShownSubgraphError] = useState(false);
   const { networks, version, isLoading, error: networksError } = useNetworks();
   const { subgraphCounts, error: subgraphsError } = useSubgraphs();
 
-  React.useEffect(() => {
-    if (networksError) {
+  useEffect(() => {
+    if (networksError && !hasShownNetworkError) {
       toast.error(`Failed to fetch networks data: ${networksError}`);
     }
-    if (subgraphsError) {
+    setHasShownNetworkError(!!networksError);
+  }, [networksError, hasShownNetworkError]);
+
+  useEffect(() => {
+    if (subgraphsError && !hasShownSubgraphError) {
       toast.error(`Failed to fetch subgraphs data: ${subgraphsError}`);
     }
-  }, [networksError, subgraphsError]);
+    setHasShownSubgraphError(!!subgraphsError);
+  }, [subgraphsError, hasShownSubgraphError]);
 
   return (
     <div
