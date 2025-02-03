@@ -554,17 +554,17 @@
   dependencies:
     csstype "^3.0.2"
 
-"@web3icons/common@0.11.3":
-  version "0.11.3"
-  resolved "https://registry.yarnpkg.com/@web3icons/common/-/common-0.11.3.tgz#744e0389a17b1fe0ef9ceef41b09dbc371a534ab"
-  integrity sha512-Q+jUlCwClbjhSGId0hrlCbGNoec4tZKdZoqMJZ8Gi8W+aOWZN+k9+KMpSs4o4kBeJsf37E5MgAuR2v8Ng/lMpg==
+"@web3icons/common@0.11.4":
+  version "0.11.4"
+  resolved "https://registry.yarnpkg.com/@web3icons/common/-/common-0.11.4.tgz#63e00d8cf06612b787a235a385bfeb46f0d5746b"
+  integrity sha512-1034RkWHNog+NKJ4R/2V7AAC2RmRjV1P2qGH0ilC6etmPyaUSwpHSC0aY1IsGM10oqzcD5n28n0lFlt63XTi4g==
 
 "@web3icons/react@^4.0.0":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@web3icons/react/-/react-4.0.4.tgz#56377e7d3341c9b7b751932482783e75a3ba6e5d"
-  integrity sha512-pCqyRgtPSXXOgEwQ+wy25W/TRCcxqMHCb0JcZSc2Xt9/3OZIOOzj82sViMJm6Fm3tfLluuxFX1oMfJZmHW1mBQ==
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/@web3icons/react/-/react-4.0.5.tgz#8e3b525efa23ed7ad37f868dad02d6abeedda030"
+  integrity sha512-gRypiLA5o8ptv+e3/AgvlimRfxnm44ha7J+NWxsVLz67C2BXNa30lIDOcyQZ92u7Hhq8lE/wqfo0hi6xG5IAvA==
   dependencies:
-    "@web3icons/common" "0.11.3"
+    "@web3icons/common" "0.11.4"
     react "^18.2.0"
 
 busboy@1.6.0:
