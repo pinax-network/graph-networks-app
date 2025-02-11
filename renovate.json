@@ -6,6 +6,7 @@
   "recreateWhen": "never",
   "labels": ["dependencies"],
   "rebaseWhen": "conflicted",
+  "automerge": true,
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch"],
