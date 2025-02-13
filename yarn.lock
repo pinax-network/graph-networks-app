@@ -536,9 +536,9 @@
     tailwindcss "4.0.6"
 
 "@types/node@^22.0.0":
-  version "22.13.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.13.2.tgz#6f401c5ccadac75354f5652128e9fcc3b0cf23b7"
-  integrity sha512-Z+r8y3XL9ZpI2EY52YYygAFmo2/oWfNSj4BCpAXE2McAexDk8VcnBMGC9Djn9gTKt4d2T/hhXqmPzo4hfIXtTg==
+  version "22.13.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.13.4.tgz#3fe454d77cd4a2d73c214008b3e331bfaaf5038a"
+  integrity sha512-ywP2X0DYtX3y08eFVx5fNIw7/uIv8hYUKgXoK8oayJlLnKcRfEYCxWMVE1XagUdVtCJlZT1AU4LXEABW+L1Peg==
   dependencies:
     undici-types "~6.20.0"
 
@@ -554,17 +554,17 @@
   dependencies:
     csstype "^3.0.2"
 
-"@web3icons/common@0.11.6":
-  version "0.11.6"
-  resolved "https://registry.yarnpkg.com/@web3icons/common/-/common-0.11.6.tgz#ce26c2b4152cd6dd2a42fafe4fc9d4bead08ef52"
-  integrity sha512-3Y+ImXPbn3f4x0EiEiqBjbzExmDgY2N05cHSRCzC9iLQwYVAFmHHGg+C1jWiM0PzKR2vq4A4ZwMTYQTSS0CJxA==
+"@web3icons/common@0.11.7":
+  version "0.11.7"
+  resolved "https://registry.yarnpkg.com/@web3icons/common/-/common-0.11.7.tgz#354e5eb2c7c1a638dc076934d83b837242b879a8"
+  integrity sha512-beuJ2iT5gXcUmBq/Hapi/SjPrId3yfGVovpi87773/aExK/NaG+5XGtSc/kX6wIdXHxCrNl7YPrPSgTR3GudfQ==
 
 "@web3icons/react@^4.0.0":
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/@web3icons/react/-/react-4.0.7.tgz#3cd0df7b90102ba9703aec1648860e64753df2c2"
-  integrity sha512-Jz20iAr+fwEMkxKQbjq8N/6jvPVzY96QM4E47hDKOsIGsOHOybXA8BybCH59EZIe88yAQ1TYt5xnn0+qNJnsjQ==
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/@web3icons/react/-/react-4.0.8.tgz#9e5266019181e68f4e629964a39928695a0638d6"
+  integrity sha512-ELOC3xaNf9O9hTUEAmiggonJkjCiouoKuGS5Z2qtkJxE+d2/VhJMXgwKqhQeBxp9cuUwSW1Fe/Cagkn/GgmFug==
   dependencies:
-    "@web3icons/common" "0.11.6"
+    "@web3icons/common" "0.11.7"
     react "^18.2.0"
 
 busboy@1.6.0:
