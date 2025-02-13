@@ -7,6 +7,7 @@
   "labels": ["dependencies"],
   "rebaseWhen": "conflicted",
   "automerge": true,
+  "automergeType": "pr",
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch"],
