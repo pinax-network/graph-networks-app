@@ -102,7 +102,7 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
-type ServiceType = 'subgraphs' | 'sps' | 'firehose' | 'substreams';
+type ServiceType = 'subgraphs' | 'sps' | 'firehose' | 'substreams' | 'tokenApi';
 
 const getSubgraphStudioName = (url: string) => {
   if (url.includes('api.studio.thegraph.com')) {
@@ -122,7 +122,7 @@ function getServiceConfig(type: ServiceType) {
     case 'sps':
       return {
         title: 'Substreams-powered Subgraphs',
-        color: '#4BCA81',
+        color: '#4C66FF',
         showUrl: false,
       };
     case 'firehose':
@@ -137,10 +137,16 @@ function getServiceConfig(type: ServiceType) {
         color: '#FF79C6',
         showUrl: true,
       };
+    case 'tokenApi':
+      return {
+        title: 'Token API',
+        color: '#4BCA81',
+        showUrl: true,
+      };
     default:
       return {
         title: type,
-        color: '#4C66FF',
+        color: '#ef0303',
         showUrl: false,
       };
   }

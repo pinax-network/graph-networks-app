@@ -11,13 +11,14 @@ interface NetworkCardProps {
 
 const SERVICE_INDICATORS = [
   { key: 'subgraphs', color: '#66D8FF', hoverText: 'Subgraph in Studio' },
-  {
-    key: 'sps',
-    color: '#4BCA81',
-    hoverText: 'Substreams-powered Subgraphs in Studio',
-  },
+  // {
+  //   key: 'sps',
+  //   color: '#4C66FF',
+  //   hoverText: 'Substreams-powered Subgraphs in Studio',
+  // },
   { key: 'substreams', color: '#FF79C6', hoverText: 'Substreams' },
   { key: 'firehose', color: '#FFA801', hoverText: 'Firehose' },
+  { key: 'tokenApi', color: '#4BCA81', hoverText: 'Token API' },
 ] as const;
 
 export function NetworkCard({ network, onClick }: NetworkCardProps) {

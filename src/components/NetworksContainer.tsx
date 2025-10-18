@@ -38,6 +38,7 @@ export function NetworksContainer({
     sps: false,
     firehose: false,
     substreams: false,
+    tokenApi: false,
   });
 
   const filteredNetworks = networks
@@ -77,11 +78,14 @@ export function NetworksContainer({
       }
       // Count supported services for each network
       const countServices = (network: Network) => {
-        return ['subgraphs', 'sps', 'firehose', 'substreams'].reduce((count, service) => {
-          return (
-            count + (network.services?.[service as keyof typeof network.services]?.length ? 1 : 0)
-          );
-        }, 0);
+        return ['subgraphs', 'sps', 'firehose', 'substreams', 'tokenApi'].reduce(
+          (count, service) => {
+            return (
+              count + (network.services?.[service as keyof typeof network.services]?.length ? 1 : 0)
+            );
+          },
+          0,
+        );
       };
 
       const servicesA = countServices(a);
@@ -143,6 +147,12 @@ export function NetworksContainer({
           onCheckedChange={(checked) => setFilters((f) => ({ ...f, substreams: checked }))}
           label="Substreams"
           id="substreams-toggle"
+        />
+        <FilterToggle
+          checked={filters.tokenApi}
+          onCheckedChange={(checked) => setFilters((f) => ({ ...f, tokenApi: checked }))}
+          label="Token API"
+          id="tokenapi-toggle"
         />
       </div>
 
