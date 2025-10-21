@@ -1,7 +1,7 @@
-import type { NetworkCount } from '@/app/api/subgraphs/route';
-import { Switch } from '@/components/ui/switch';
 import type { Network, NetworkType } from '@pinax/graph-networks-registry';
 import { useState } from 'react';
+import type { NetworkCount } from '@/app/api/subgraphs/route';
+import { Switch } from '@/components/ui/switch';
 import { NetworkCard } from './NetworkCard';
 import { NetworkDrawer } from './NetworkDrawer';
 
@@ -29,7 +29,11 @@ function FilterToggle({ checked, onCheckedChange, label, id }: FilterToggleProps
 export function NetworksContainer({
   networks,
   subgraphCounts,
-}: { networks: Network[]; subgraphCounts: NetworkCount[] }) {
+}: {
+  networks: Network[];
+  subgraphCounts: NetworkCount[];
+}) {
+  const id = useId();
   const [selectedNetwork, setSelectedNetwork] = useState<Network | undefined>(undefined);
   const [showTestnets, setShowTestnets] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -122,37 +126,37 @@ export function NetworksContainer({
           checked={showTestnets}
           onCheckedChange={setShowTestnets}
           label="Testnets"
-          id="testnet-toggle"
+          id={id}
         />
         <FilterToggle
           checked={filters.subgraphs}
           onCheckedChange={(checked) => setFilters((f) => ({ ...f, subgraphs: checked }))}
           label="Subgraphs"
-          id="subgraphs-toggle"
+          id={id}
         />
         <FilterToggle
           checked={filters.sps}
           onCheckedChange={(checked) => setFilters((f) => ({ ...f, sps: checked }))}
           label="SpS"
-          id="sps-toggle"
+          id={id}
         />
         <FilterToggle
           checked={filters.firehose}
           onCheckedChange={(checked) => setFilters((f) => ({ ...f, firehose: checked }))}
           label="Firehose"
-          id="firehose-toggle"
+          id={id}
         />
         <FilterToggle
           checked={filters.substreams}
           onCheckedChange={(checked) => setFilters((f) => ({ ...f, substreams: checked }))}
           label="Substreams"
-          id="substreams-toggle"
+          id={id}
         />
         <FilterToggle
           checked={filters.tokenApi}
           onCheckedChange={(checked) => setFilters((f) => ({ ...f, tokenApi: checked }))}
           label="Token API"
-          id="tokenapi-toggle"
+          id={id}
         />
       </div>
 

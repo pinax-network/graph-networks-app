@@ -1,8 +1,8 @@
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { getNetworkNameAndVariant } from '@/lib/utils';
 import type { Network } from '@pinax/graph-networks-registry';
 import { NetworkIcon } from '@web3icons/react';
 import Image from 'next/image';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { getNetworkNameAndVariant } from '@/lib/utils';
 
 interface NetworkCardProps {
   network: Network;

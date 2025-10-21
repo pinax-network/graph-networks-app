@@ -1,7 +1,7 @@
-import { getNetworkNameAndVariant } from '@/lib/utils';
 import type { Network } from '@pinax/graph-networks-registry';
 import { NetworkIcon } from '@web3icons/react';
 import { useEffect, useState } from 'react';
+import { getNetworkNameAndVariant } from '@/lib/utils';
 
 interface NetworkDrawerProps {
   network: Network;
