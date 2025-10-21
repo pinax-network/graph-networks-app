@@ -23,14 +23,10 @@ const SERVICE_INDICATORS = [
 
 export function NetworkCard({ network, onClick }: NetworkCardProps) {
   return (
-    <div
+    <button
+      type="button"
       onClick={onClick}
-      onKeyDown={(e) => {
-        if (['Enter', 'Space'].includes(e.key)) {
-          onClick();
-        }
-      }}
-      className="bg-slate-800 rounded-lg p-6 cursor-pointer hover:bg-slate-700 transition-colors relative border border-slate-700/30"
+      className="bg-slate-800 rounded-lg p-6 cursor-pointer hover:bg-slate-700 transition-colors relative border border-slate-700/30 w-full text-left"
     >
       <div className="flex items-center gap-4">
         <div className="relative w-16 h-16 -ml-2">
@@ -91,6 +87,6 @@ export function NetworkCard({ network, onClick }: NetworkCardProps) {
           </TooltipProvider>
         ))}
       </div>
-    </div>
+    </button>
   );
 }
