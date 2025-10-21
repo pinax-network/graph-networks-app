@@ -233,16 +233,13 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
 
   return (
     <>
-      <div
+      <button
+        type="button"
         className={`fixed inset-0 bg-black/50 transition-opacity z-40 ${
           isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onClick={onClose}
-        onKeyDown={(e) => {
-          if (['Enter', 'Space'].includes(e.key)) {
-            onClose();
-          }
-        }}
+        aria-label="Close drawer"
       />
 
       <div

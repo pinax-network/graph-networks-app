@@ -1,5 +1,5 @@
 import type { Network, NetworkType } from '@pinax/graph-networks-registry';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import type { NetworkCount } from '@/app/api/subgraphs/route';
 import { Switch } from '@/components/ui/switch';
 import { NetworkCard } from './NetworkCard';
