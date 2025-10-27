@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# keep only yarn.lock - that's what we use in CI
+bun.lock
+package-lock.json
+pnpm-lock.yaml
