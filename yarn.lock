@@ -660,17 +660,17 @@
   dependencies:
     csstype "^3.0.2"
 
-"@web3icons/common@0.11.21":
-  version "0.11.21"
-  resolved "https://registry.yarnpkg.com/@web3icons/common/-/common-0.11.21.tgz#5c89c3dcefb4543891dd3bdb8766f071e0c54f47"
-  integrity sha512-+tVmsqehYsqrgDTFw78f46DrbEt7CU+SG9uE1TYRyO0HjiDljbhhqlk8aDQihC1idJj1axoegl8Yd+dfvf2hdQ==
+"@web3icons/common@0.11.23":
+  version "0.11.23"
+  resolved "https://registry.yarnpkg.com/@web3icons/common/-/common-0.11.23.tgz#f95d3eb67f8b296af3ce8ab162ce2f1612d0fc7c"
+  integrity sha512-UaKgqxKR08Y9TzHYl7s0mgT43mbfhAxXGfWI66g7aa6rPYniZNA5Z046dv6dL+PkQnigQqT/nPcvzdKGwUJqvw==
 
 "@web3icons/react@^4.0.0":
-  version "4.0.27"
-  resolved "https://registry.yarnpkg.com/@web3icons/react/-/react-4.0.27.tgz#15f6ca92ba32cd16c48ecc828924b477dc76528c"
-  integrity sha512-Oqc3xG0RanJw/O5PIBhkT4KhZejSXGbgY+FyFOarUxuF+fp8LbELxeICazB8bQOzQUUtbT7CDcvVLui5FcJthw==
+  version "4.0.29"
+  resolved "https://registry.yarnpkg.com/@web3icons/react/-/react-4.0.29.tgz#0dfec4bfcee53b13e41608936daac7c761728900"
+  integrity sha512-l8HGNbOfhht3AJJz0SuZKBxa5PH/2jFhOJfg/wFMIgDbCFbi1Reziq/kr5m6juQYcmdNb7teo6QqZqCHZzZuDw==
   dependencies:
-    "@web3icons/common" "0.11.21"
+    "@web3icons/common" "0.11.23"
     react "^18.2.0"
 
 caniuse-lite@^1.0.30001579:
