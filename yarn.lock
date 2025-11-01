@@ -666,12 +666,11 @@
   integrity sha512-UaKgqxKR08Y9TzHYl7s0mgT43mbfhAxXGfWI66g7aa6rPYniZNA5Z046dv6dL+PkQnigQqT/nPcvzdKGwUJqvw==
 
 "@web3icons/react@^4.0.0":
-  version "4.0.29"
-  resolved "https://registry.yarnpkg.com/@web3icons/react/-/react-4.0.29.tgz#0dfec4bfcee53b13e41608936daac7c761728900"
-  integrity sha512-l8HGNbOfhht3AJJz0SuZKBxa5PH/2jFhOJfg/wFMIgDbCFbi1Reziq/kr5m6juQYcmdNb7teo6QqZqCHZzZuDw==
+  version "4.0.31"
+  resolved "https://registry.yarnpkg.com/@web3icons/react/-/react-4.0.31.tgz#1ec52350777af38786575b5fbbceb7b06183f96d"
+  integrity sha512-Ad7fiRglYHpnc5tql0W5zL5mM1jRVeQ3q/qK4OFZRBiMveZEDumR7VF4tLrdcXYj/hPLwNAO+JCJTc7mhd5yGw==
   dependencies:
     "@web3icons/common" "0.11.23"
-    react "^18.2.0"
 
 caniuse-lite@^1.0.30001579:
   version "1.0.30001689"
@@ -720,11 +719,6 @@ jiti@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-2.6.1.tgz#178ef2fc9a1a594248c20627cd820187a4d78d92"
   integrity sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==
-
-"js-tokens@^3.0.0 || ^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
-  integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
 
 lightningcss-android-arm64@1.30.2:
   version "1.30.2"
@@ -800,17 +794,10 @@ lightningcss@1.30.2:
     lightningcss-win32-arm64-msvc "1.30.2"
     lightningcss-win32-x64-msvc "1.30.2"
 
-loose-envify@^1.1.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
-  integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
-  dependencies:
-    js-tokens "^3.0.0 || ^4.0.0"
-
-lucide-react@^0.548.0:
-  version "0.548.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.548.0.tgz#14db954aea4d6e5c0ae9cbb107cdeb86197922e6"
-  integrity sha512-63b16z63jM9yc1MwxajHeuu0FRZFsDtljtDjYm26Kd86UQ5HQzu9ksEtoUUw4RBuewodw/tGFmvipePvRsKeDA==
+lucide-react@^0.552.0:
+  version "0.552.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.552.0.tgz#037767b51513fe6db71818f1198fcd7df4a08bde"
+  integrity sha512-g9WCjmfwqbexSnZE+2cl21PCfXOcqnGeWeMTNAOGEfpPbm/ZF4YIq77Z8qWrxbu660EKuLB4nSLggoKnCb+isw==
 
 magic-string@^0.30.19:
   version "0.30.19"
@@ -884,13 +871,6 @@ react@19.2.0:
   version "19.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-19.2.0.tgz#d33dd1721698f4376ae57a54098cb47fc75d93a5"
   integrity sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ==
-
-react@^18.2.0:
-  version "18.3.1"
-  resolved "https://registry.yarnpkg.com/react/-/react-18.3.1.tgz#49ab892009c53933625bd16b2533fc754cab2891"
-  integrity sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==
-  dependencies:
-    loose-envify "^1.1.0"
 
 scheduler@^0.27.0:
   version "0.27.0"
