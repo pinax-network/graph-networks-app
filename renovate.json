@@ -8,6 +8,7 @@
   "rebaseWhen": "conflicted",
   "automerge": true,
   "automergeType": "pr",
+  "assignAutomerge": true,
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch"],
