@@ -40,7 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# keep only yarn.lock - that's what we use in CI
-bun.lock
+# keep only bun.lock - that's what we use in CI
+yarn.lock
 package-lock.json
 pnpm-lock.yaml
