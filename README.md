@@ -13,13 +13,9 @@ Every push to `main` builds a container image, `ghcr.io/pinax-network/graph-netw
 [`pinax-network/k8s-pinax-ui`](https://github.com/pinax-network/k8s-pinax-ui): Flux opens a
 "Deploy to prod" pull request there for each new image, and merging it deploys.
 
-The server needs one runtime setting, `GRAPH_API_KEY` (a [Studio API key](https://thegraph.com/studio/apikeys/)),
-which `/api/subgraphs` uses to count subgraphs per network. On the cluster it comes from the
-Secret `graph-networks-app-env`; locally, put it in `.env.local` (see `.env.example`).
-
 To try the image locally:
 
 ```bash
 docker build -t graph-networks-app .
-docker run --rm -p 3000:3000 -e GRAPH_API_KEY=<key> graph-networks-app
+docker run --rm -p 3000:3000 graph-networks-app
 ```

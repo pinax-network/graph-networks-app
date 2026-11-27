@@ -8,7 +8,6 @@ node_modules
 output
 .env
 .env.*
-!.env.example
 *.tsbuildinfo
 .DS_Store
 Dockerfile

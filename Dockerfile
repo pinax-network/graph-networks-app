@@ -1,11 +1,8 @@
 # Production image for Kubernetes (pinax-network/k8s-pinax-ui, ott-monitor1),
 # served at https://graph-networks.pinax.network. .github/workflows/container.yml
 # builds it on every push to main, and Flux proposes the new tag in a "Deploy to
-# prod" pull request there; merging it deploys.
-#
-# GRAPH_API_KEY is runtime-only (Kubernetes Secret graph-networks-app-env); never
-# pass it as a build arg. The build needs no secret: /api/subgraphs reads the key
-# per request.
+# prod" pull request there; merging it deploys. It needs no secret, at build or
+# at run time.
 
 FROM node:24-alpine AS dependencies
 COPY --from=oven/bun:1.4.3-alpine /usr/local/bin/bun /usr/local/bin/bun
@@ -37,8 +34,8 @@ ARG COMMIT=unknown
 ENV GIT_COMMIT=${COMMIT}
 
 # Standalone output leaves out public/ and .next/static; copy both. .next stays
-# writable by `node` for Next.js's caches (the registry and subgraph fetches are
-# cached there for 5 minutes, per pod).
+# writable by `node` for Next.js's caches (the registry fetch is cached there for
+# 5 minutes, per pod).
 COPY --from=builder --chown=node:node /app/.next/standalone ./
 COPY --from=builder --chown=node:node /app/.next/static ./.next/static
 COPY --from=builder --chown=node:node /app/public ./public

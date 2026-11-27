@@ -5,7 +5,6 @@ import { getNetworkNameAndVariant } from '@/lib/utils';
 
 interface NetworkDrawerProps {
   network: Network;
-  subgraphCounts?: { nativeCount: number; spsCount: number };
   onClose: () => void;
   isOpen: boolean;
 }
@@ -102,7 +101,7 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
-type ServiceType = 'subgraphs' | 'sps' | 'firehose' | 'substreams' | 'tokenApi';
+type ServiceType = 'subgraphs' | 'firehose' | 'substreams' | 'tokenApi';
 
 const getSubgraphStudioName = (url: string) => {
   if (url.includes('api.studio.thegraph.com')) {
@@ -117,12 +116,6 @@ function getServiceConfig(type: ServiceType) {
       return {
         title: 'Subgraphs',
         color: '#66D8FF',
-        showUrl: false,
-      };
-    case 'sps':
-      return {
-        title: 'Substreams-powered Subgraphs',
-        color: '#4C66FF',
         showUrl: false,
       };
     case 'firehose':
@@ -215,7 +208,7 @@ function ServiceSection({ type, services = [] }: ServiceSectionProps) {
   );
 }
 
-export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: NetworkDrawerProps) {
+export function NetworkDrawer({ network, onClose, isOpen }: NetworkDrawerProps) {
   const [showJson, setShowJson] = useState(false);
 
   useEffect(() => {
@@ -406,24 +399,10 @@ export function NetworkDrawer({ network, subgraphCounts, onClose, isOpen }: Netw
                     )}
                     <span className="text-white ml-2">Indexing Rewards</span>
                   </div>
-                  {subgraphCounts && (
-                    <>
-                      {subgraphCounts.nativeCount > 0 && (
-                        <InfoText>
-                          <span className="font-bold">{subgraphCounts.nativeCount}</span> Native
-                          Subgraphs
-                        </InfoText>
-                      )}
-                      {subgraphCounts.spsCount > 0 && (
-                        <InfoText>
-                          <span className="font-bold">{subgraphCounts.spsCount}</span>{' '}
-                          Substreams-powered Subgraphs
-                        </InfoText>
-                      )}
-                      <InfoLink href={`https://thegraph.com/explorer?indexedNetwork=${network.id}`}>
-                        View in Explorer
-                      </InfoLink>
-                    </>
+                  {(network.services?.subgraphs?.length ?? 0) > 0 && (
+                    <InfoLink href={`https://thegraph.com/explorer?indexedNetwork=${network.id}`}>
+                      View in Explorer
+                    </InfoLink>
                   )}
                 </div>
               </div>

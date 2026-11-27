@@ -1,6 +1,5 @@
 import type { Network, NetworkType } from '@pinax/graph-networks-registry';
 import { useId, useState } from 'react';
-import type { NetworkCount } from '@/app/api/subgraphs/route';
 import { Switch } from '@/components/ui/switch';
 import { NetworkCard } from './NetworkCard';
 import { NetworkDrawer } from './NetworkDrawer';
@@ -26,20 +25,13 @@ function FilterToggle({ checked, onCheckedChange, label, id }: FilterToggleProps
   );
 }
 
-export function NetworksContainer({
-  networks,
-  subgraphCounts,
-}: {
-  networks: Network[];
-  subgraphCounts: NetworkCount[];
-}) {
+export function NetworksContainer({ networks }: { networks: Network[] }) {
   const id = useId();
   const [selectedNetwork, setSelectedNetwork] = useState<Network | undefined>(undefined);
   const [showTestnets, setShowTestnets] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({
     subgraphs: false,
-    sps: false,
     firehose: false,
     substreams: false,
     tokenApi: false,
@@ -82,14 +74,11 @@ export function NetworksContainer({
       }
       // Count supported services for each network
       const countServices = (network: Network) => {
-        return ['subgraphs', 'sps', 'firehose', 'substreams', 'tokenApi'].reduce(
-          (count, service) => {
-            return (
-              count + (network.services?.[service as keyof typeof network.services]?.length ? 1 : 0)
-            );
-          },
-          0,
-        );
+        return ['subgraphs', 'firehose', 'substreams', 'tokenApi'].reduce((count, service) => {
+          return (
+            count + (network.services?.[service as keyof typeof network.services]?.length ? 1 : 0)
+          );
+        }, 0);
       };
 
       const servicesA = countServices(a);
@@ -132,12 +121,6 @@ export function NetworksContainer({
           checked={filters.subgraphs}
           onCheckedChange={(checked) => setFilters((f) => ({ ...f, subgraphs: checked }))}
           label="Subgraphs"
-          id={id}
-        />
-        <FilterToggle
-          checked={filters.sps}
-          onCheckedChange={(checked) => setFilters((f) => ({ ...f, sps: checked }))}
-          label="SpS"
           id={id}
         />
         <FilterToggle
@@ -187,7 +170,6 @@ export function NetworksContainer({
       {selectedNetwork && (
         <NetworkDrawer
           network={selectedNetwork}
-          subgraphCounts={subgraphCounts?.find((count) => count.network === selectedNetwork?.id)}
           onClose={() => setSelectedNetwork(undefined)}
           isOpen={selectedNetwork !== null}
         />

@@ -34,20 +34,9 @@ function useNetworks() {
   };
 }
 
-function useSubgraphs() {
-  const { data, error, isLoading } = useSWR('/api/subgraphs', fetcher);
-  return {
-    subgraphCounts: JSON.parse(data || '[]'),
-    isLoading,
-    error,
-  };
-}
-
 export default function Home() {
   const [hasShownNetworkError, setHasShownNetworkError] = useState(false);
-  const [hasShownSubgraphError, setHasShownSubgraphError] = useState(false);
   const { networks, version, isLoading, error: networksError } = useNetworks();
-  const { subgraphCounts, error: subgraphsError } = useSubgraphs();
 
   useEffect(() => {
     if (networksError && !hasShownNetworkError) {
@@ -55,13 +44,6 @@ export default function Home() {
     }
     setHasShownNetworkError(!!networksError);
   }, [networksError, hasShownNetworkError]);
-
-  useEffect(() => {
-    if (subgraphsError && !hasShownSubgraphError) {
-      toast.error(`Failed to fetch subgraphs data: ${subgraphsError}`);
-    }
-    setHasShownSubgraphError(!!subgraphsError);
-  }, [subgraphsError, hasShownSubgraphError]);
 
   return (
     <div
@@ -121,7 +103,7 @@ export default function Home() {
               <Loader2 className="h-32 w-32 animate-spin text-white" />
             </div>
           ) : (
-            <NetworksContainer networks={networks} subgraphCounts={subgraphCounts} />
+            <NetworksContainer networks={networks} />
           )}
         </main>
       </div>
