@@ -1,5 +1,5 @@
 import type { Network } from '@pinax/graph-networks-registry';
-import { NetworkIcon } from '@web3icons/react';
+import { NetworkIcon } from '@web3icons/react/dynamic';
 import Image from 'next/image';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { getNetworkNameAndVariant } from '@/lib/utils';
@@ -10,7 +10,7 @@ interface NetworkCardProps {
 }
 
 const SERVICE_INDICATORS = [
-  { key: 'subgraphs', color: '#66D8FF', hoverText: 'Subgraph in Studio' },
+  { key: 'subgraphs', color: '#66D8FF', hoverText: 'Subgraphs' },
   { key: 'substreams', color: '#FF79C6', hoverText: 'Substreams' },
   { key: 'firehose', color: '#FFA801', hoverText: 'Firehose' },
   { key: 'tokenApi', color: '#4BCA81', hoverText: 'Token API' },
