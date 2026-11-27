@@ -1,0 +1,57 @@
+name: Container image
+
+# Every push to main builds the production image with the shared
+# pinax-network/.github docker-build action and pushes it as
+# ghcr.io/pinax-network/graph-networks-app:<sha7>-<unix-ts> (plus the moving tag
+# `develop`). Flux in pinax-network/k8s-pinax-ui then proposes the newest
+# timestamp in its "Deploy to prod" pull request, and merging that deploys it
+# to ott-monitor1 (https://graph-networks.pinax.network). Keep the tag format in
+# sync with its ImagePolicy graph-networks-app-prod (deploy/monitor/images.yaml).
+#
+# Pull requests that touch the image build it without pushing.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - Dockerfile
+      - .dockerignore
+      - .github/workflows/container.yml
+      - next.config.ts
+      - package.json
+      - bun.lock
+      - bunfig.toml
+      - .npmrc
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  # A newer push supersedes a build still running; only the newest deploys anyway.
+  group: container-image-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  image:
+    # Only main publishes. The action tags any other ref <sha7>-<unix-ts> too,
+    # which the ImagePolicy would propose.
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build and push
+        # Pinned to a commit like the other actions; the action itself uses
+        # docker/* actions by major tag.
+        uses: pinax-network/.github/actions/docker-build@9d2df6251fe1a06f9643689be951652686003e9f # main, 2026-11-13
+        with:
+          push: ${{ github.event_name != 'pull_request' }}

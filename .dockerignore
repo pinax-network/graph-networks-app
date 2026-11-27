@@ -1,0 +1,13 @@
+.git
+.github
+.next
+.vercel
+.idea
+.vscode
+node_modules
+output
+.env
+.env.*
+*.tsbuildinfo
+.DS_Store
+Dockerfile

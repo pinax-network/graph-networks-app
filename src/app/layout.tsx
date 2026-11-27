@@ -13,14 +13,19 @@ const geistMono = localFont({
   weight: '100 900',
 });
 
+const SITE_URL = 'https://graph-networks.pinax.network';
+
 export const metadata: Metadata = {
+  // Makes the preview image URLs below absolute. Vercel filled it in from its
+  // own URL; a self-hosted server would fall back to http://localhost:3000.
+  metadataBase: new URL(SITE_URL),
   title: 'The Graph Networks',
   description:
     'Generated from The Graph Registry: https://github.com/graphprotocol/networks-registry',
   openGraph: {
     title: 'The Graph Networks',
     description: "Explore The Graph Protocol's supported networks and their capabilities",
-    url: 'https://graph-networks-app.vercel.app',
+    url: SITE_URL,
     siteName: 'The Graph Networks',
     images: [
       {
