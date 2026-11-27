@@ -3,5 +3,8 @@
 # save exact versions with `bun add`, and never auto-install missing packages
 # at runtime (that would fetch the latest versions).
 minimumReleaseAge = 432000
+# Our own registry types, published from pinax-network/graph-networks-libs by
+# GitHub Actions with npm provenance, so a new schema can ship the day it lands.
+minimumReleaseAgeExcludes = ["@pinax/graph-networks-registry"]
 exact = true
 auto = "disable"

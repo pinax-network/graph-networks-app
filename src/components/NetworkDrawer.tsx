@@ -1,5 +1,5 @@
-import type { Network } from '@pinax/graph-networks-registry';
-import { NetworkIcon } from '@web3icons/react';
+import type { Network, SubgraphsService } from '@pinax/graph-networks-registry';
+import { NetworkIcon } from '@web3icons/react/dynamic';
 import { useEffect, useState } from 'react';
 import { getNetworkNameAndVariant } from '@/lib/utils';
 
@@ -103,45 +103,41 @@ function CopyButton({ text }: { text: string }) {
 
 type ServiceType = 'subgraphs' | 'firehose' | 'substreams' | 'tokenApi';
 
-const getSubgraphStudioName = (url: string) => {
-  if (url.includes('api.studio.thegraph.com')) {
-    return 'Subgraph Studio';
-  }
-  return 'N/A';
+const URL_SERVICE_TYPES = ['firehose', 'substreams', 'tokenApi'] as const;
+
+const SERVICE_CONFIG: Record<ServiceType, { title: string; color: string }> = {
+  subgraphs: { title: 'Subgraphs', color: '#66D8FF' },
+  firehose: { title: 'Firehose', color: '#FFA801' },
+  substreams: { title: 'Substreams', color: '#FF79C6' },
+  tokenApi: { title: 'Token API', color: '#4BCA81' },
 };
 
-function getServiceConfig(type: ServiceType) {
-  switch (type) {
-    case 'subgraphs':
-      return {
-        title: 'Subgraphs',
-        color: '#66D8FF',
-        showUrl: false,
-      };
-    case 'firehose':
-      return {
-        title: 'Firehose',
-        color: '#FFA801',
-        showUrl: true,
-      };
-    case 'substreams':
-      return {
-        title: 'Substreams',
-        color: '#FF79C6',
-        showUrl: true,
-      };
-    case 'tokenApi':
-      return {
-        title: 'Token API',
-        color: '#4BCA81',
-        showUrl: true,
-      };
+function getSubgraphKindText(kind: string): string {
+  switch (kind) {
+    case 'gateway':
+      return 'Gateway';
+    case 'studio':
+      return 'Studio';
+    case 'backstop':
+      return 'Backstop';
+    case 'curation':
+      return 'Curation';
     default:
-      return {
-        title: type,
-        color: '#ef0303',
-        showUrl: false,
-      };
+      return kind;
+  }
+}
+
+// Backstop and curation entries name a provider instead of giving a URL.
+function getSubgraphProviderText(provider: string): string {
+  switch (provider) {
+    case 'infradao':
+      return 'InfraDAO';
+    case 'streamingfast':
+      return 'StreamingFast';
+    case 'the-graph-foundation':
+      return 'The Graph Foundation';
+    default:
+      return provider;
   }
 }
 
@@ -176,34 +172,41 @@ function getIndexerDocText(url: string, description?: string): string {
 
 interface ServiceSectionProps {
   type: ServiceType;
-  services?: string[];
+  active: boolean;
+  children: React.ReactNode;
 }
 
-function ServiceSection({ type, services = [] }: ServiceSectionProps) {
-  const { title, color, showUrl } = getServiceConfig(type);
+function ServiceSection({ type, active, children }: ServiceSectionProps) {
+  const { title, color } = SERVICE_CONFIG[type];
 
   return (
     <div>
       <h3 className="text-gray-400 mb-2 flex items-center gap-2 text-sm sm:text-base">
         <span
           className="w-3 h-3 rounded-full inline-block shrink-0"
-          style={{ backgroundColor: services?.length ? color : '#494755' }}
+          style={{ backgroundColor: active ? color : '#494755' }}
         />
         {title}
       </h3>
-      {services && (
-        <div className="space-y-2 max-w-full">
-          {services.map((url) => (
-            <div key={url} className="min-w-0">
-              {showUrl ? (
-                <InfoCode text={url ?? 'N/A'} />
-              ) : (
-                <InfoText bold>{getSubgraphStudioName(url)}</InfoText>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="space-y-2 max-w-full">{children}</div>
+    </div>
+  );
+}
+
+function SubgraphEntry({ entry }: { entry: SubgraphsService }) {
+  // A gateway's provider is only its base URL; its query URL is what to copy.
+  const value = entry.queryUrls?.subgraphId ?? entry.provider;
+
+  return (
+    <div className="flex items-baseline gap-3 min-w-0" title={entry.description}>
+      <span className="text-gray-400 text-sm w-20 shrink-0">{getSubgraphKindText(entry.kind)}</span>
+      <div className="min-w-0">
+        {/^https?:\/\//.test(value) ? (
+          <InfoCode text={value} />
+        ) : (
+          <InfoText bold>{getSubgraphProviderText(value)}</InfoText>
+        )}
+      </div>
     </div>
   );
 }
@@ -354,9 +357,27 @@ export function NetworkDrawer({ network, onClose, isOpen }: NetworkDrawerProps) 
 
               <div className="col-span-full">
                 <div className="grid grid-cols-1 gap-6">
-                  {Object.entries(network.services || {}).map(([type, services]) => (
-                    <ServiceSection key={type} type={type as ServiceType} services={services} />
-                  ))}
+                  {network.services?.subgraphs && (
+                    <ServiceSection type="subgraphs" active={network.services.subgraphs.length > 0}>
+                      {network.services.subgraphs.map((entry) => (
+                        <SubgraphEntry key={`${entry.kind}-${entry.provider}`} entry={entry} />
+                      ))}
+                    </ServiceSection>
+                  )}
+                  {URL_SERVICE_TYPES.map((type) => {
+                    const urls = network.services?.[type];
+                    return (
+                      urls && (
+                        <ServiceSection key={type} type={type} active={urls.length > 0}>
+                          {urls.map((url) => (
+                            <div key={url} className="min-w-0">
+                              <InfoCode text={url} />
+                            </div>
+                          ))}
+                        </ServiceSection>
+                      )
+                    );
+                  })}
                 </div>
               </div>
 
